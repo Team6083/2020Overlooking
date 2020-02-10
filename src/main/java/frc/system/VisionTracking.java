@@ -11,7 +11,9 @@ public class VisionTracking{
 
     private PIDController PID_controller;
 
-    final double DESIRED_TARGET_Y_AXIS = 0.47639;        // Area of the target when the robot reaches the wall
+    // this variable should be adjust by the target area detected in the best place of the robot
+    final double DESIRED_TARGET_Y_AXIS = 0.5;        // Area of the target when the robot reaches the wall
+
     final double MAX_DRIVE = 0.5;                   // Simple speed limit so we don't drive too fast
     final double MAX_STEER = 0.5;  
 
@@ -82,14 +84,33 @@ public class VisionTracking{
         m_LimelightSteerCommand = steering_adjust;
       }
 
+    /**
+     * 0	use the LED Mode set in the current pipeline
+     * 1	force off
+     * 2	force blink
+     * 3	force on
+     * @param ModeNumber use to set LED mode
+     */
+
       public void setLEDMode(int ModeNumber){
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(ModeNumber);
       }
+
+    /**
+     * 0	Vision processor
+     * 1	Driver Camera (Increases exposure, disables vision processing)
+     * @param CamNumber use to set Cam mode
+     */
 
       public void setCamMode(int CamNumber){
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(CamNumber);
       }
     
+      /**
+       * know whether the camera have detect the target or not
+       * 1 means has detect valid target
+       * 0 means hasn't detect valid target
+       */
       public double getValidTarget(){
         return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
       }

@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.system.ColorSense;
+import frc.system.DriveBase;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,6 +27,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     ColorSense.init();
+    DriveBase.init();
   }
 
   @Override
@@ -45,8 +47,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    
     ColorSense.teleop();
+    DriveBase.teleop();
   }
 
   @Override

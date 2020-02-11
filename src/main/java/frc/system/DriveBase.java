@@ -1,7 +1,6 @@
 package frc.system;
 
 import org.team6083.lib.drive.DifferentialDrive;
-import org.team6083.lib.drive.inputs.TankInput;
 import org.team6083.lib.util.XBoxController;
 
 import edu.wpi.first.wpilibj.VictorSP;

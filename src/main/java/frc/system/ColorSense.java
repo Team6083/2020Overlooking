@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 
@@ -27,7 +26,7 @@ public class ColorSense {
     private static final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
     static XboxController joy;
-    static VictorSP vicl1 = new VictorSP(1);
+    static VictorSP vicl1 = new VictorSP(4);
 
     public static void init(XboxController stick) {
         m_colorMatcher.addColorMatch(kBlueTarget);

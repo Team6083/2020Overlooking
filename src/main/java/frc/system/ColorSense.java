@@ -1,6 +1,7 @@
 package frc.system;
 
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Joystick;
@@ -25,14 +26,15 @@ public class ColorSense {
     private static final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
     private static final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
-    static Joystick joy = new Joystick(0);
+    static XboxController joy;
     static VictorSP vicl1 = new VictorSP(1);
 
-    public static void init() {
+    public static void init(XboxController stick) {
         m_colorMatcher.addColorMatch(kBlueTarget);
         m_colorMatcher.addColorMatch(kGreenTarget);
         m_colorMatcher.addColorMatch(kRedTarget);
         m_colorMatcher.addColorMatch(kYellowTarget);
+        joy = stick;
     }
 
     public static void teleopInit() {

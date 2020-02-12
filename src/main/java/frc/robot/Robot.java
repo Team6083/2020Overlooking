@@ -7,8 +7,6 @@
 
 package frc.robot;
 
-import org.team6083.lib.util.XBoxController;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.system.ColorSense;
 import frc.system.DriveBase;
@@ -29,7 +27,7 @@ public class Robot extends TimedRobot {
    * for any initialization code.
    */
 
-  XBoxController xbox = new XBoxController(0);
+  XBox xbox = new XBox(0);
 
   @Override
   public void robotInit() {

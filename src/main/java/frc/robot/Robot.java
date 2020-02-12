@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import frc.system.ColorSense;
 import frc.system.DriveBase;
 import frc.system.Elevate;
+import frc.system.VisionTracking;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -57,6 +58,7 @@ public class Robot extends TimedRobot {
     ColorSense.teleop();
     DriveBase.teleop();
     Elevate.teleop();
+    VisionTracking.teleop();
   }
 
   @Override

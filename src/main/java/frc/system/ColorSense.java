@@ -32,8 +32,8 @@ public class ColorSense {
     public static void init(XboxController stick) {
         m_colorSensor = new ColorSensorV3(i2cPort);
         m_colorMatcher = new ColorMatch();
-        joy = stick;
         vicl1 = new WPI_VictorSPX(4);
+        joy = stick;
 
         m_colorMatcher.addColorMatch(kBlueTarget);
         m_colorMatcher.addColorMatch(kGreenTarget);

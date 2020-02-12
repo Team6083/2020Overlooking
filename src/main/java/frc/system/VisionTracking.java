@@ -18,8 +18,8 @@ public class VisionTracking{
 
     private static PIDController PID_controller;
     private static Timer time;
-    private static WPI_VictorSPX motor7 = new WPI_VictorSPX(7);
-    private static WPI_VictorSPX motor8 = new WPI_VictorSPX(8);
+    private static WPI_VictorSPX motor7;
+    private static WPI_VictorSPX motor8;
 
     // this variable should be adjust by the target area detected in the best place of the robot
     static final double DESIRED_TARGET_Y_AXIS = 0.5;        // Area of the target when the robot reaches the wall
@@ -30,6 +30,8 @@ public class VisionTracking{
     static XboxController joy;
 
     public static void init(XBox xbox){
+      motor7 = new WPI_VictorSPX(7);
+      motor8 = new WPI_VictorSPX(8);
       joy = xbox;
     }
 

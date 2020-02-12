@@ -2,24 +2,45 @@ package frc.system;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionTracking{
-    private boolean m_LimelightHasValidTarget = false;
-    private double m_LimelightDriveCommand = 0.0;
-    private double m_LimelightSteerCommand = 0.0;
-    private double steering_adjust = 0.0;
+    private static boolean m_LimelightHasValidTarget = false;
+    private static double m_LimelightDriveCommand = 0.0;
+    private static double m_LimelightSteerCommand = 0.0;
+    private static double steering_adjust = 0.0;
 
-    private PIDController PID_controller;
-    private Timer time;
+    private static PIDController PID_controller;
+    private static Timer time;
 
     // this variable should be adjust by the target area detected in the best place of the robot
-    final double DESIRED_TARGET_Y_AXIS = 0.5;        // Area of the target when the robot reaches the wall
+    static final double DESIRED_TARGET_Y_AXIS = 0.5;        // Area of the target when the robot reaches the wall
 
-    final double MAX_DRIVE = 0.5;                   // Simple speed limit so we don't drive too fast
-    final double MAX_STEER = 0.5;  
+    static final double MAX_DRIVE = 0.5;                   // Simple speed limit so we don't drive too fast
+    static final double MAX_STEER = 0.5;  
 
-    public void Update_Limelight_Tracking()
+    static XboxController joy;
+
+    public static void teleop(){
+      setLEDMode(1);
+      boolean getButtonPressed = false;
+      SmartDashboard.putBoolean("A button pressed", getButtonPressed);
+      if(joy.getAButtonPressed()){
+        getButtonPressed = !getButtonPressed;
+        if(getButtonPressed) {
+          setLEDMode(3);
+          Update_Limelight_Tracking();
+          if(detectIfTrackingFinished()){
+            setLEDMode(2);
+            //write shooting code here
+          }
+        }
+      }
+    }
+
+    public static void Update_Limelight_Tracking()
     {
 
             double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
@@ -69,7 +90,7 @@ public class VisionTracking{
 
     }
 
-    public void seeking(){
+    public static void seeking(){
         double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
 
         if (tv == 0.0)
@@ -90,7 +111,7 @@ public class VisionTracking{
        * 
        * @return whether the tracking finished or not
        */
-      public boolean detectIfTrackingFinished(){
+      public static boolean detectIfTrackingFinished(){
         boolean detectedFinished = false;
         if(m_LimelightSteerCommand < 0.01 && m_LimelightDriveCommand < 0.01){
           time.start();
@@ -115,7 +136,7 @@ public class VisionTracking{
      * @param ModeNumber use to set LED mode
      */
 
-      public void setLEDMode(int ModeNumber){
+      public static void setLEDMode(int ModeNumber){
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(ModeNumber);
       }
 
@@ -125,7 +146,7 @@ public class VisionTracking{
      * @param CamNumber use to set Cam mode
      */
 
-      public void setCamMode(int CamNumber){
+      public static void setCamMode(int CamNumber){
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(CamNumber);
       }
     
@@ -134,19 +155,19 @@ public class VisionTracking{
        * 1 means has detect valid target
        * 0 means hasn't detect valid target
        */
-      public double getValidTarget(){
+      public static double getValidTarget(){
         return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
       }
     
-      public double getHorizontalOffset(){
+      public static double getHorizontalOffset(){
         return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
       }
     
-      public double getVerticalOffset(){
+      public static double getVerticalOffset(){
         return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
       }
     
-      public double getTargetArea(){
+      public static double getTargetArea(){
         return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
       }
     
@@ -154,14 +175,14 @@ public class VisionTracking{
        * 
        * @return Skew or rotation (-90 degrees to 0 degrees)
        */
-      public double getRotation(){
+      public static double getRotation(){
         return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ts").getDouble(0);
       }
     
       /**
        *  The pipeline’s latency contribution (ms) Add at least 11ms for image capture latency.
        */
-      public double getLatencyContribution(){
+      public static double getLatencyContribution(){
         return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tl").getDouble(0);
       }  
 }

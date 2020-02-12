@@ -2,7 +2,9 @@ package frc.system;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.VictorSP;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -15,8 +17,8 @@ public class VisionTracking{
 
     private static PIDController PID_controller;
     private static Timer time;
-    private static VictorSP motor7 = new VictorSP(7);
-    private static VictorSP motor8 = new VictorSP(8);
+    private static WPI_VictorSPX motor7 = new WPI_VictorSPX(7);
+    private static WPI_VictorSPX motor8 = new WPI_VictorSPX(8);
 
     // this variable should be adjust by the target area detected in the best place of the robot
     static final double DESIRED_TARGET_Y_AXIS = 0.5;        // Area of the target when the robot reaches the wall
@@ -37,8 +39,8 @@ public class VisionTracking{
           Update_Limelight_Tracking();
           if(detectIfTrackingFinished()){
             setLEDMode(2);
-            motor7.set(0.7);
-            motor8.set(-0.7);
+            motor7.set(ControlMode.PercentOutput, 0.7);
+            motor8.set(ControlMode.PercentOutput, -0.7);
           }
         }
       }

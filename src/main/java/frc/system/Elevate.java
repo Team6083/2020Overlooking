@@ -3,18 +3,18 @@ package frc.system;
 import edu.wpi.first.wpilibj.Timer;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import org.team6083.lib.util.XBoxController;
 
 public class Elevate {
-    private static VictorSPX Motor1;
-    private static VictorSPX Motor2;
+    private static WPI_VictorSPX Motor1;
+    private static WPI_VictorSPX Motor2;
     private static XBoxController xbox;
     private static Timer time;
 
     public static void init(final XBoxController joy) {
-        Motor1 = new VictorSPX(5);
-        Motor2 = new VictorSPX(6);
+        Motor1 = new WPI_VictorSPX(5);
+        Motor2 = new WPI_VictorSPX(6);
         xbox = joy;
         time = new Timer();
     }
@@ -27,7 +27,7 @@ public class Elevate {
         }
     }
 
-    public static void RunNSec(VictorSPX motor, int n) {
+    public static void RunNSec(WPI_VictorSPX motor, int n) {
         time.reset();
         time.start();
         if (time.get() < n) {

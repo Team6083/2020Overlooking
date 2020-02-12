@@ -1,7 +1,7 @@
 package frc.system;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
@@ -27,7 +27,7 @@ public class ColorSense {
     private static final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
     static XboxController joy;
-    static VictorSPX vicl1 = new VictorSPX(4);
+    static WPI_VictorSPX vicl1 = new WPI_VictorSPX(4);
 
     public static void init(XboxController stick) {
         m_colorMatcher.addColorMatch(kBlueTarget);

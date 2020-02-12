@@ -7,8 +7,12 @@
 
 package frc.robot;
 
+import org.team6083.lib.util.XBoxController;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.system.ColorSense;
+import frc.system.DriveBase;
+import frc.system.Elevate;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,9 +27,14 @@ public class Robot extends TimedRobot {
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
+
+  XBoxController xbox = new XBoxController(0);
+
   @Override
   public void robotInit() {
-    ColorSense.init();
+    ColorSense.init(xbox);
+    DriveBase.init(xbox);
+    Elevate.init(xbox);
   }
 
   @Override
@@ -45,8 +54,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    
     ColorSense.teleop();
+    DriveBase.teleop();
+    Elevate.teleop();
   }
 
   @Override

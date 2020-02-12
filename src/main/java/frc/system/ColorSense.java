@@ -1,9 +1,9 @@
 package frc.system;
 
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 
@@ -25,14 +25,15 @@ public class ColorSense {
     private static final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
     private static final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
-    static Joystick joy = new Joystick(0);
-    static VictorSP vicl1 = new VictorSP(1);
+    static XboxController joy;
+    static VictorSP vicl1 = new VictorSP(4);
 
-    public static void init() {
+    public static void init(XboxController stick) {
         m_colorMatcher.addColorMatch(kBlueTarget);
         m_colorMatcher.addColorMatch(kGreenTarget);
         m_colorMatcher.addColorMatch(kRedTarget);
         m_colorMatcher.addColorMatch(kYellowTarget);
+        joy = stick;
     }
 
     public static void teleopInit() {
@@ -40,14 +41,16 @@ public class ColorSense {
     }
 
     public static void teleop() {
-        if (joy.getRawButton(1)) {
+            String gameData, colString="";
             String colorString = "";
             final Color detectedColor = m_colorSensor.getColor();
             final ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
             final int proximity = m_colorSensor.getProximity();
 
+            gameData = DriverStation.getInstance().getGameSpecificMessage();
+            
             colorString = matchResult(match);
-
+            colString=matchResult(match);
             SmartDashboard.putNumber("Red", detectedColor.red);
             SmartDashboard.putNumber("Green", detectedColor.green);
             SmartDashboard.putNumber("Blue", detectedColor.blue);
@@ -61,9 +64,10 @@ public class ColorSense {
                 }
             }
 
-            if (count >= 7) {
-                vicl1.set(0);
-            } else {
+                if (count >= 7) {
+                    vicl1.set(0);
+                } 
+            if (joy.getRawButtonPressed(1)){
                 vicl1.set(0.15);
             }
 
@@ -71,14 +75,35 @@ public class ColorSense {
 
             lastDetectedColor = colorString;
 
-            if (joy.getRawButton(2)) {
-                processButton2();
+            
+            if (gameData.length() > 0) {
+                switch (gameData.charAt(0)) {
+                case 'B': // Blue case code
+                    chooseDetectedColor = "Red";
+                    break;
+                case 'G': // Green case code
+                    chooseDetectedColor = "Yellow";
+                    break;
+                case 'R': // Red case code 
+                    chooseDetectedColor = "Blue";
+                    break;
+                case 'Y': // Yellow case code
+                    chooseDetectedColor = "Green";
+                    break;
+                default: // This is corrupt data
+                }
+            if (chooseDetectedColor.equals(colString)) {
+                    vicl1.set(0);
+                } 
+
+            if (joy.getRawButtonPressed(2)) {
+                count=0;
+                vicl1.set(0.15);
             }
         }
+        
 
-        if (joy.getRawButton(2)) {
-            processButton2();
-        }
+   
     }
 
     public static String matchResult(final ColorMatchResult match) {
@@ -95,38 +120,13 @@ public class ColorSense {
         }
     }
 
-    public static void processButton2() {
-        String gameData, colorString;
-        final Color detectedColor = m_colorSensor.getColor();
-        final ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+  
+        
+      
 
-        gameData = DriverStation.getInstance().getGameSpecificMessage();
-        colorString = matchResult(match);
 
-        if (gameData.length() > 0) {
-            switch (gameData.charAt(0)) {
-            case 'B': // Blue case code
-                chooseDetectedColor = "Red";
-                break;
-            case 'G': // Green case code
-                chooseDetectedColor = "Yellow";
-                break;
-            case 'R': // Red case code 
-                chooseDetectedColor = "Blue";
-                break;
-            case 'Y': // Yellow case code
-                chooseDetectedColor = "Green";
-                break;
-            default: // This is corrupt data
-            }
+        
 
-            if (!chooseDetectedColor.equals(colorString)) {
-                vicl1.set(0.15);
-            } else {
-                vicl1.set(0);
-            }
-        } else {
-            // Code for no data received yet
-        }
+  
+        
     }
-}

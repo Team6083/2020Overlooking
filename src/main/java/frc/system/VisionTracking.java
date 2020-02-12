@@ -1,6 +1,7 @@
 package frc.system;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
 
 public class VisionTracking{
@@ -10,6 +11,7 @@ public class VisionTracking{
     private double steering_adjust = 0.0;
 
     private PIDController PID_controller;
+    private Timer time;
 
     // this variable should be adjust by the target area detected in the best place of the robot
     final double DESIRED_TARGET_Y_AXIS = 0.5;        // Area of the target when the robot reaches the wall
@@ -82,6 +84,27 @@ public class VisionTracking{
         }
         
         m_LimelightSteerCommand = steering_adjust;
+      }
+
+      /** 
+       * 
+       * @return whether the tracking finished or not
+       */
+      public boolean detectIfTrackingFinished(){
+        boolean detectedFinished = false;
+        if(m_LimelightSteerCommand < 0.01 && m_LimelightDriveCommand < 0.01){
+          time.start();
+          if(m_LimelightSteerCommand > 0.01 || m_LimelightDriveCommand > 0.01){
+            time.reset();
+          }
+          if(time.get() > 0.5){
+            detectedFinished = true;
+          }
+        }
+        else{
+          detectedFinished = false;
+        }
+        return detectedFinished;
       }
 
     /**

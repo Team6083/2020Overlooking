@@ -1,6 +1,7 @@
 package frc.system;
 
-import edu.wpi.first.wpilibj.VictorSP;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
@@ -26,7 +27,7 @@ public class ColorSense {
     private static final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
     static XboxController joy;
-    static VictorSP vicl1 = new VictorSP(4);
+    static VictorSPX vicl1 = new VictorSPX(4);
 
     public static void init(XboxController stick) {
         m_colorMatcher.addColorMatch(kBlueTarget);
@@ -65,10 +66,10 @@ public class ColorSense {
             }
 
                 if (count >= 7) {
-                    vicl1.set(0);
+                    vicl1.set(ControlMode.PercentOutput, 0);
                 } 
             if (joy.getRawButtonPressed(1)){
-                vicl1.set(0.15);
+                vicl1.set(ControlMode.PercentOutput, 0.15);
             }
 
             SmartDashboard.putNumber("count", count);
@@ -93,12 +94,12 @@ public class ColorSense {
                 default: // This is corrupt data
                 }
             if (chooseDetectedColor.equals(colString)) {
-                    vicl1.set(0);
+                    vicl1.set(ControlMode.PercentOutput, 0);
                 } 
 
             if (joy.getRawButtonPressed(2)) {
                 count=0;
-                vicl1.set(0.15);
+                vicl1.set(ControlMode.PercentOutput, 0.15);
             }
         }
         

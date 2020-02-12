@@ -34,6 +34,7 @@ public class Robot extends TimedRobot {
     ColorSense.init(xbox);
     DriveBase.init(xbox);
     Elevate.init(xbox);
+    VisionTracking.init(xbox);
   }
 
   @Override

@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.XBox;
 
 public class VisionTracking{
     private static boolean m_LimelightHasValidTarget = false;
@@ -27,6 +28,10 @@ public class VisionTracking{
     static final double MAX_STEER = 0.5;  
 
     static XboxController joy;
+
+    public static void init(XBox xbox){
+      joy = xbox;
+    }
 
     public static void teleop(){
       setLEDMode(1);

@@ -30,4 +30,4 @@ public class Shooting {
     }
 }
 
-//sent 10 0.3
+//sent 10 0.3; suck 4 axis3*0.4

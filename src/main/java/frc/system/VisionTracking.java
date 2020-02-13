@@ -5,10 +5,9 @@ import edu.wpi.first.wpilibj.Timer;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.XBox;
+import frc.robot.Robot;
 
 public class VisionTracking{
     private static boolean m_LimelightHasValidTarget = false;
@@ -27,19 +26,16 @@ public class VisionTracking{
     static final double MAX_DRIVE = 0.5;                   // Simple speed limit so we don't drive too fast
     static final double MAX_STEER = 0.5;  
 
-    static XboxController joy;
-
-    public static void init(XBox xbox){
+    public static void init(){
       motor7 = new WPI_VictorSPX(7);
       motor8 = new WPI_VictorSPX(8);
-      joy = xbox;
     }
 
     public static void teleop(){
       setLEDMode(1);
       boolean getButtonPressed = false;
       SmartDashboard.putBoolean("A button pressed", getButtonPressed);
-      if(joy.getAButtonPressed()){
+      if(Robot.xbox.getAButtonPressed()){
         getButtonPressed = !getButtonPressed;
         if(getButtonPressed) {
           setLEDMode(3);

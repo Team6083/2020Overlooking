@@ -22,22 +22,24 @@ import frc.system.VisionTracking;
  * project.
  */
 public class Robot extends TimedRobot {
-
+  public static XBox xbox;
+  public static TheMotor motor;
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
 
-  XBox xbox = new XBox(0);
-  TheMotor motor = new TheMotor(8);
+  
 
   @Override
   public void robotInit() {
-    ColorSense.init(xbox, motor);
-    DriveBase.init(xbox);
-    Elevate.init(xbox);
-    Shooting.init(xbox, motor);
-    VisionTracking.init(xbox);
+    xbox = new XBox(0);
+    motor = new TheMotor(8);
+    ColorSense.init();
+    DriveBase.init();
+    Elevate.init();
+    Shooting.init();
+    VisionTracking.init();
   }
 
   @Override

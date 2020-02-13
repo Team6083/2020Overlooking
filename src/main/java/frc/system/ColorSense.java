@@ -1,39 +1,33 @@
 package frc.system;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.Robot;
 
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
 
 public class ColorSense {
+    private static final I2C.Port i2cPort = I2C.Port.kOnboard;
     private static ColorSensorV3 m_colorSensor;
     private static ColorMatch m_colorMatcher;
-
-    private static final I2C.Port i2cPort = I2C.Port.kOnboard;
-    private static final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-    private static final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
-    private static final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
-    private static final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
-
-    static XboxController joy;
-    static WPI_VictorSPX vicl1;
 
     static String lastDetectedColor = "";
     static String chooseDetectedColor = "";
     static int count = 0;
 
-    public static void init(XboxController stick, WPI_VictorSPX motor) {
+    private static final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+    private static final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
+    private static final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
+    private static final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+
+    public static void init() {
         m_colorSensor = new ColorSensorV3(i2cPort);
         m_colorMatcher = new ColorMatch();
-        vicl1 = motor;
-        joy = stick;
 
         m_colorMatcher.addColorMatch(kBlueTarget);
         m_colorMatcher.addColorMatch(kGreenTarget);
@@ -70,11 +64,11 @@ public class ColorSense {
         }
  
         if (count >= 7) {
-            vicl1.set(ControlMode.PercentOutput, 0);
+            Robot.motor.set(ControlMode.PercentOutput, 0);
         }
-        if (joy.getRawButtonPressed(1)) {
+        if (Robot.xbox.getRawButtonPressed(1)) {
             count=0;
-            vicl1.set(ControlMode.PercentOutput, 0.15);
+            Robot.motor.set(ControlMode.PercentOutput, 0.15);
         }
 
         SmartDashboard.putNumber("count", count);
@@ -98,12 +92,12 @@ public class ColorSense {
             default: // This is corrupt data
             }
             if (chooseDetectedColor.equals(colString)) {
-                vicl1.set(ControlMode.PercentOutput, 0);
+                Robot.motor.set(ControlMode.PercentOutput, 0);
             }
 
-            if (joy.getRawButtonPressed(2)) {
+            if (Robot.xbox.getRawButtonPressed(2)) {
                 count = 0;
-                vicl1.set(ControlMode.PercentOutput, 0.15);
+                Robot.motor.set(ControlMode.PercentOutput, 0.15);
             }
         }
 

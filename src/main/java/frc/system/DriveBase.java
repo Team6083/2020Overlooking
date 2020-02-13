@@ -1,7 +1,8 @@
 package frc.system;
 
 import org.team6083.lib.drive.DifferentialDrive;
-import org.team6083.lib.util.XBoxController;
+
+import frc.robot.Robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -11,23 +12,21 @@ public class DriveBase {
     private static WPI_VictorSPX leftMotor2;
     private static WPI_VictorSPX rightMotor1;
     private static WPI_VictorSPX rightMotor2;
-    private static XBoxController input;
 
     public static final int lm1 = 4;
     public static final int lm2 = 6;
     public static final int rm1 = 3;
     public static final int rm2 = 5;
 
-    public static void init(XBoxController controller) {
+    public static void init() {
         leftMotor1 = new WPI_VictorSPX(lm1);
         leftMotor2 = new WPI_VictorSPX(lm2);
         rightMotor1 = new WPI_VictorSPX(rm1);
         rightMotor2 = new WPI_VictorSPX(rm2);
         drive = new DifferentialDrive(leftMotor1,leftMotor2,rightMotor1,rightMotor2);
-        input = controller;
     }
 
     public static void teleop() {
-        drive.tankDrive(input);
+        drive.tankDrive(Robot.xbox);
     }
 }

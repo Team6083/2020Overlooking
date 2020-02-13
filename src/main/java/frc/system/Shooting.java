@@ -1,7 +1,5 @@
 package frc.system;
 
-import java.util.ResourceBundle.Control;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -29,5 +27,3 @@ public class Shooting {
         }
     }
 }
-
-//sent 10 0.3; suck 4 axis3*0.4

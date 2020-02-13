@@ -73,6 +73,7 @@ public class ColorSense {
             vicl1.set(ControlMode.PercentOutput, 0);
         }
         if (joy.getRawButtonPressed(1)) {
+            count=0;
             vicl1.set(ControlMode.PercentOutput, 0.15);
         }
 

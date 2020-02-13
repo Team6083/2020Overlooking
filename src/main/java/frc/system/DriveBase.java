@@ -13,10 +13,10 @@ public class DriveBase {
     private static WPI_VictorSPX rightMotor2;
     private static XBoxController input;
 
-    public static final int lm1 = 0;
-    public static final int lm2 = 1;
-    public static final int rm1 = 2;
-    public static final int rm2 = 3;
+    public static final int lm1 = 4;
+    public static final int lm2 = 6;
+    public static final int rm1 = 3;
+    public static final int rm2 = 5;
 
     public static void init(XBoxController controller) {
         leftMotor1 = new WPI_VictorSPX(lm1);

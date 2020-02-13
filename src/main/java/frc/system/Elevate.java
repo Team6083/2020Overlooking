@@ -10,8 +10,8 @@ public class Elevate {
     private static XBoxController xbox;
 
     public static void init(final XBoxController joy) {
-        Up1 = new WPI_VictorSPX(5);
-        Up2 = new WPI_VictorSPX(6);
+        Up1 = new WPI_VictorSPX(1);
+        Up2 = new WPI_VictorSPX(2);
         xbox = joy;
     }
 
@@ -23,7 +23,7 @@ public class Elevate {
         } else if (xbox.getRawButton(5)) {
             Up2.set(ControlMode.PercentOutput, 0.5);
         } else if (xbox.getRawButton(6)) {
-            Up2.set(ControlMode.PercentOutput, 0.5);
+            Up2.set(ControlMode.PercentOutput, -0.5);
         } else {
             Up1.set(ControlMode.PercentOutput, 0);
             Up2.set(ControlMode.PercentOutput, 0);

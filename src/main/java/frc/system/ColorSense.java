@@ -13,14 +13,10 @@ import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
 
 public class ColorSense {
-    private static final I2C.Port i2cPort = I2C.Port.kOnboard;
     private static ColorSensorV3 m_colorSensor;
     private static ColorMatch m_colorMatcher;
 
-    static String lastDetectedColor = "";
-    static String chooseDetectedColor = "";
-    static int count = 0;
-
+    private static final I2C.Port i2cPort = I2C.Port.kOnboard;
     private static final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
     private static final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
     private static final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
@@ -29,10 +25,14 @@ public class ColorSense {
     static XboxController joy;
     static WPI_VictorSPX vicl1;
 
-    public static void init(XboxController stick) {
+    static String lastDetectedColor = "";
+    static String chooseDetectedColor = "";
+    static int count = 0;
+
+    public static void init(XboxController stick, WPI_VictorSPX motor) {
         m_colorSensor = new ColorSensorV3(i2cPort);
         m_colorMatcher = new ColorMatch();
-        vicl1 = new WPI_VictorSPX(4);
+        vicl1 = motor;
         joy = stick;
 
         m_colorMatcher.addColorMatch(kBlueTarget);
@@ -68,7 +68,7 @@ public class ColorSense {
                 count++;
             }
         }
-
+ 
         if (count >= 7) {
             vicl1.set(ControlMode.PercentOutput, 0);
         }

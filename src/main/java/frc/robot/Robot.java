@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import frc.system.ColorSense;
 import frc.system.DriveBase;
 import frc.system.Elevate;
+import frc.system.Shooting;
 import frc.system.VisionTracking;
 
 /**
@@ -28,12 +29,14 @@ public class Robot extends TimedRobot {
    */
 
   XBox xbox = new XBox(0);
+  TheMotor motor = new TheMotor(8);
 
   @Override
   public void robotInit() {
-    ColorSense.init(xbox);
+    ColorSense.init(xbox, motor);
     DriveBase.init(xbox);
     Elevate.init(xbox);
+    Shooting.init(xbox, motor);
     VisionTracking.init(xbox);
   }
 
@@ -57,6 +60,7 @@ public class Robot extends TimedRobot {
     ColorSense.teleop();
     DriveBase.teleop();
     Elevate.teleop();
+    Shooting.teleop();
     VisionTracking.teleop();
   }
 

@@ -19,8 +19,8 @@ public class Shooting {
 
     public static void teleop() {
         if(joy.getRawButton(7)){
-            shootLeft.set(ControlMode.PercentOutput, -0.6);
-            shootRight.set(ControlMode.PercentOutput, 0.6);
+            shootLeft.set(ControlMode.PercentOutput, -0.7);
+            shootRight.set(ControlMode.PercentOutput, 0.7);
         } else {
             shootLeft.set(ControlMode.PercentOutput, 0);
             shootRight.set(ControlMode.PercentOutput, 0);

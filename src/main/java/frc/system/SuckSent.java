@@ -21,12 +21,9 @@ public class SuckSent {
 
     public static void teleop() {
         suck.set(ControlMode.PercentOutput, joy.getRawAxis(3)*0.5);
+        sent.set(ControlMode.PercentOutput, joy.getRawAxis(3)*0.5);
 
         analog.getValue();
         analog.getVoltage();
-
-        if(joy.getRawButton(8)){
-            sent.set(ControlMode.PercentOutput, 0.3);
-        }
     }
 }

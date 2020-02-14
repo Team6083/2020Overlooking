@@ -34,7 +34,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     xbox = new XBox(0);
-    motor = new TheMotor(8);
+    TheMotor.init();
     ColorSense.init();
     DriveBase.init();
     Elevate.init();

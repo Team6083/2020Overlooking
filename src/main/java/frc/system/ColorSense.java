@@ -1,11 +1,11 @@
 package frc.system;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Robot;
+import frc.robot.TheMotor;
 
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
@@ -64,11 +64,11 @@ public class ColorSense {
         }
  
         if (count >= 7) {
-            Robot.motor.set(ControlMode.PercentOutput, 0);
+            TheMotor.run("stop");
         }
         if (Robot.xbox.getRawButtonPressed(1)) {
             count=0;
-            Robot.motor.set(ControlMode.PercentOutput, 0.15);
+            TheMotor.run("color");
         }
 
         SmartDashboard.putNumber("count", count);
@@ -92,12 +92,12 @@ public class ColorSense {
             default: // This is corrupt data
             }
             if (chooseDetectedColor.equals(colString)) {
-                Robot.motor.set(ControlMode.PercentOutput, 0);
+                TheMotor.run("stop");
             }
 
             if (Robot.xbox.getRawButtonPressed(2)) {
                 count = 0;
-                Robot.motor.set(ControlMode.PercentOutput, 0.15);
+                TheMotor.run("color");
             }
         }
 

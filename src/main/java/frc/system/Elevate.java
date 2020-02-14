@@ -3,6 +3,7 @@ package frc.system;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.Robot;
 
 public class Elevate {
@@ -15,11 +16,11 @@ public class Elevate {
     }
 
     public static void teleop() {
-        if (Robot.xbox.getRawButton(3)) {
+        if (Robot.xbox.getTriggerAxis(Hand.kRight)>0) {
             Up1.set(ControlMode.PercentOutput, 0.5);
-        } else if (Robot.xbox.getRawButton(4)) {
+        } else if (Robot.xbox.getTriggerAxis(Hand.kLeft)>0) {
             Up1.set(ControlMode.PercentOutput, -0.5);
-        } else if (Robot.xbox.getRawButton(5)) {
+        } else if (Robot.xbox.getRawButton(3)) {
             Up2.set(ControlMode.PercentOutput, 0.5);
         } else if (Robot.xbox.getRawButton(6)) {
             Up2.set(ControlMode.PercentOutput, -0.5);

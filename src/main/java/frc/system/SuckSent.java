@@ -18,8 +18,9 @@ public class SuckSent {
     }
 
     public static void teleop() {
-        suck.set(ControlMode.PercentOutput, Robot.xbox.getRawAxis(3)*0.5);
-        sent.set(ControlMode.PercentOutput, Robot.xbox.getRawAxis(3)*0.5);
+        if(Robot.xbox.getYButton()){
+            suck.set(ControlMode.PercentOutput, 0.5);
+        }
 
         analog.getValue();
         analog.getVoltage();

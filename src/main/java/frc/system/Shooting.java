@@ -14,7 +14,7 @@ public class Shooting {
     }
 
     public static void teleop() {
-        if(Robot.xbox.getRawButton(7)){
+        if(Robot.xbox.getBButton()){
             shootLeft.set(ControlMode.PercentOutput, -0.7);
             TheMotor.run("shoot");
         } else {

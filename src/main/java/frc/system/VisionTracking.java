@@ -23,12 +23,13 @@ public class VisionTracking{
     // this variable should be adjust by the target area detected in the best place of the robot
     static final double DESIRED_TARGET_Y_AXIS = 0.5;        // Area of the target when the robot reaches the wall
 
-    static final double MAX_DRIVE = 0.5;                   // Simple speed limit so we don't drive too fast
-    static final double MAX_STEER = 0.5;  
+    static final double MAX_DRIVE = 0.7;                   // Simple speed limit so we don't drive too fast
+    static final double MAX_STEER = 0.7;  
 
     public static void init(){
       motor7 = new WPI_VictorSPX(7);
       motor8 = new WPI_VictorSPX(8);
+      setCamMode(1);
     }
 
     public static void teleop(){
@@ -38,8 +39,10 @@ public class VisionTracking{
       if(Robot.xbox.getAButtonPressed()){
         getButtonPressed = !getButtonPressed;
         if(getButtonPressed) {
+          setCamMode(0);
           setLEDMode(3);
           Update_Limelight_Tracking();
+          DriveBase.track(m_LimelightDriveCommand, m_LimelightSteerCommand, false);
           if(detectIfTrackingFinished()){
             setLEDMode(2);
             motor7.set(ControlMode.PercentOutput, 0.7);
@@ -100,6 +103,9 @@ public class VisionTracking{
     }
 
     public static void seeking(){
+        setCamMode(0);
+        setLEDMode(3);
+        boolean automaticShootingFinished = false;
         double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
 
         if (tv == 0.0)
@@ -107,13 +113,21 @@ public class VisionTracking{
           // We don't see the target, seek for the target by spinning in place at a safe speed.
           steering_adjust = 0.3;
           m_LimelightDriveCommand = 0.0;
+          DriveBase.track(m_LimelightDriveCommand, m_LimelightSteerCommand, false);
         }
         else
         {
           Update_Limelight_Tracking();
+          DriveBase.track(m_LimelightDriveCommand, m_LimelightSteerCommand, false);
+          if(detectIfTrackingFinished()){
+            setLEDMode(2);
+            setCamMode(1);
+            motor7.set(ControlMode.PercentOutput, 0.7);
+            motor8.set(ControlMode.PercentOutput, -0.7);
+            automaticShootingFinished = true;
+          }
         }
-        
-        m_LimelightSteerCommand = steering_adjust;
+        SmartDashboard.putBoolean("whether automatic shooting finished", automaticShootingFinished);
       }
 
       /** 

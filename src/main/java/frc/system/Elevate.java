@@ -11,7 +11,7 @@ public class Elevate {
     private static WPI_VictorSPX Up2;
 
     public static void init() {
-        Up1 = new WPI_VictorSPX(1);
+        Up1 = new WPI_VictorSPX(8);
         Up2 = new WPI_VictorSPX(2);
     }
 

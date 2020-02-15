@@ -12,6 +12,7 @@ import frc.system.ColorSense;
 import frc.system.DriveBase;
 import frc.system.Elevate;
 import frc.system.Shooting;
+import frc.system.SuckSent;
 import frc.system.VisionTracking;
 
 /**
@@ -40,6 +41,7 @@ public class Robot extends TimedRobot {
     Elevate.init();
     Shooting.init();
     VisionTracking.init();
+    SuckSent.init();
   }
 
   @Override
@@ -64,6 +66,7 @@ public class Robot extends TimedRobot {
     Elevate.teleop();
     Shooting.teleop();
     VisionTracking.teleop();
+    SuckSent.teleop();
   }
 
   @Override

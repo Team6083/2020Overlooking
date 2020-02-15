@@ -7,7 +7,7 @@ public class TheMotor {
     private static WPI_VictorSPX motor;
 
     public static void init() {
-        motor = new WPI_VictorSPX(8);
+        motor = new WPI_VictorSPX(1);
     }
 
     public static void run(String mode) {

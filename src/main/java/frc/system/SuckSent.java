@@ -14,19 +14,33 @@ public class SuckSent {
     private static int analogLenth;
 
     public static void init() {
+        analog = new AnalogInput(0);
         suck = new WPI_VictorSPX(9);
         sent = new TalonSRX(10);
         analogLenth = 40;
     }
 
     public static void teleop() {
+
         if(Robot.xbox.getYButton()){
             suck.set(ControlMode.PercentOutput, 0.5);
         }
-
-        if(analog.getValue() > analogLenth) {
-            sent.set(ControlMode.PercentOutput, 0.5);
+        else{
+            suck.set(ControlMode.PercentOutput,0);
         }
+        
+
+        if(Robot.xbox.getRawButton(6)){
+            sent.set(ControlMode.PercentOutput, 0.4);
+        }
+        else{
+            sent.set(ControlMode.PercentOutput, 0);
+        }
+
+
+        /*if(analog.getValue() > analogLenth) {
+            sent.set(ControlMode.PercentOutput, 0.5);
+        }*/
 
         // analog.getValue();
         // analog.getVoltage();

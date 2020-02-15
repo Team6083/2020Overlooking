@@ -14,7 +14,7 @@ public class SuckSent {
     private static int analogLenth;
 
     public static void init() {
-        suck = new WPI_VictorSPX(4);
+        suck = new WPI_VictorSPX(9);
         sent = new TalonSRX(10);
         analogLenth = 40;
     }

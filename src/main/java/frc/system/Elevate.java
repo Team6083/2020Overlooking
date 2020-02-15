@@ -20,9 +20,9 @@ public class Elevate {
             Up1.set(ControlMode.PercentOutput, 0.5);
         } else if (Robot.xbox.getTriggerAxis(Hand.kLeft)>0) {
             Up1.set(ControlMode.PercentOutput, -0.5);
-        } else if (Robot.xbox.getRawButton(3)) {
+        } else if (Robot.xbox.getXButton()) {
             Up2.set(ControlMode.PercentOutput, 0.5);
-        } else if (Robot.xbox.getRawButton(6)) {
+        } else if (Robot.xbox.getAButton()) {
             Up2.set(ControlMode.PercentOutput, -0.5);
         } else {
             Up1.set(ControlMode.PercentOutput, 0);

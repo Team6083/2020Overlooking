@@ -16,7 +16,7 @@ public class TheMotor {
                 motor.set(ControlMode.PercentOutput, 0.15);
                 break;
             case "shoot":
-                motor.set(ControlMode.PercentOutput, 0.7);
+                motor.set(ControlMode.PercentOutput, -0.7);
                 break;
             case "stop":
                 motor.set(ControlMode.PercentOutput, 0);

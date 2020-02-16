@@ -29,4 +29,8 @@ public class DriveBase {
     public static void teleop() {
         drive.tankDrive(Robot.xbox);
     }
+
+    public static void track(double speed, double rotation, boolean input){
+       drive.arcadeDrive(speed,rotation,input);
+    }
 }

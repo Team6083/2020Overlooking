@@ -7,26 +7,28 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.Robot;
 
 public class Elevate {
-    private static WPI_VictorSPX Up1;
-    private static WPI_VictorSPX Up2;
+    private static WPI_VictorSPX Up;
+    private static WPI_VictorSPX rope;
+    private static double speed;
 
     public static void init() {
-        Up1 = new WPI_VictorSPX(1);
-        Up2 = new WPI_VictorSPX(2);
+        Up = new WPI_VictorSPX(8);
+        rope = new WPI_VictorSPX(2);
     }
 
     public static void teleop() {
-        if (Robot.xbox.getTriggerAxis(Hand.kRight)>0) {
-            Up1.set(ControlMode.PercentOutput, 0.5);
-        } else if (Robot.xbox.getTriggerAxis(Hand.kLeft)>0) {
-            Up1.set(ControlMode.PercentOutput, -0.5);
-        } else if (Robot.xbox.getRawButton(3)) {
-            Up2.set(ControlMode.PercentOutput, 0.5);
-        } else if (Robot.xbox.getRawButton(6)) {
-            Up2.set(ControlMode.PercentOutput, -0.5);
+        if(Robot.xbox.getTriggerAxis(Hand.kLeft)>0 || Robot.xbox.getTriggerAxis(Hand.kRight)>0){
+            speed = Robot.xbox.getTriggerAxis(Hand.kLeft) - Robot.xbox.getTriggerAxis(Hand.kRight);
+        }
+
+        Up.set(ControlMode.PercentOutput,speed);
+        
+        if (Robot.xbox.getXButton()) {
+            rope.set(ControlMode.PercentOutput, 0.5);
+        } else if (Robot.xbox.getAButton()) {
+            rope.set(ControlMode.PercentOutput, -0.5);
         } else {
-            Up1.set(ControlMode.PercentOutput, 0);
-            Up2.set(ControlMode.PercentOutput, 0);
+            rope.set(ControlMode.PercentOutput, 0);
         }
     }
 }

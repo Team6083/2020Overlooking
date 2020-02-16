@@ -16,7 +16,7 @@ public class SuckSent {
     private static RobotPower power;
 
     private static AnalogInput analogInput;
-    private static double distanceWantBallToMove = 10;// this variable need to be tune
+    private static double distanceWantBallToMove = 3000;// this variable need to be tune
     private static int analogDistance = 50;
     private static double shootAmp = 3.7;
 
@@ -28,15 +28,17 @@ public class SuckSent {
         sent = new TalonSRX(10);
         power = new RobotPower(12);
 
-        sent.getSensorCollection().setPulseWidthPosition(0, 100);
+        sent.getSensorCollection().setQuadraturePosition(0, 100);
     }
 
     public static void teleop() {
         if (analogInput.getValue() > analogDistance) {
-            sent.set(ControlMode.PercentOutput, 0.3);
+            sent.getSensorCollection().setQuadraturePosition(0, 100);
+            sent.set(ControlMode.PercentOutput, 0.2);
         }
 
-        if (sent.getSensorCollection().getPulseWidthPosition() >= distanceWantBallToMove) {
+        
+        if (sent.getSensorCollection().getQuadraturePosition() >= distanceWantBallToMove) {
             sent.set(ControlMode.PercentOutput, 0);
         }
 
@@ -52,7 +54,7 @@ public class SuckSent {
 
         SmartDashboard.putNumber("shoot motor amp", power.getPortCurrent()); // 3.4
 
-        SmartDashboard.putNumber("Total distance", sent.getSensorCollection().getPulseWidthPosition());
+        SmartDashboard.putNumber("Total distance", sent.getSensorCollection().getQuadraturePosition());
 
         SmartDashboard.putNumber("Analog Read", analogInput.getValue());
 

@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Robot;
 import frc.robot.TheMotor;
+import frc.robot.TheMotor.Modes;
 
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
@@ -62,13 +63,15 @@ public class ColorSense {
                 count++;
             }
         }
- 
+
         if (count >= 7) {
-            TheMotor.run("stop");
+            TheMotor.setMode(Modes.colorMode);
+            TheMotor.runColor(0);
         }
         if (Robot.xbox.getRawButtonPressed(1)) {
-            count=0;
-            TheMotor.run("color");
+            count = 0;
+            TheMotor.setMode(Modes.colorMode);
+            TheMotor.runColor(0.15);
         }
 
         SmartDashboard.putNumber("count", count);
@@ -92,12 +95,14 @@ public class ColorSense {
             default: // This is corrupt data
             }
             if (chooseDetectedColor.equals(colString)) {
-                TheMotor.run("stop");
+                TheMotor.setMode(Modes.colorMode);
+                TheMotor.runColor(0);
             }
 
             if (Robot.xbox.getRawButtonPressed(2)) {
                 count = 0;
-                TheMotor.run("color");
+                TheMotor.setMode(Modes.colorMode);
+                TheMotor.runColor(0.15);
             }
         }
 

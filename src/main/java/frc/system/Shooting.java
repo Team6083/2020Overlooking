@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import frc.robot.Robot;
 import frc.robot.TheMotor;
+import frc.robot.TheMotor.Modes;
 
 public class Shooting {
     private static WPI_VictorSPX shootLeft;
@@ -15,11 +16,13 @@ public class Shooting {
 
     public static void teleop() {
         if(Robot.xbox.getBButton()){
+            TheMotor.setMode(Modes.shootMode);
             shootLeft.set(ControlMode.PercentOutput, -0.7);
-            TheMotor.run("shoot");
+            TheMotor.shoot(0.7);
         } else {
+            TheMotor.setMode(Modes.shootMode);
             shootLeft.set(ControlMode.PercentOutput, 0);
-            TheMotor.run("stop");
+            TheMotor.shoot(0);
         }
     }
 }

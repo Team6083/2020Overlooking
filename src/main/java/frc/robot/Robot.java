@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import frc.system.Auto;
 import frc.system.ColorSense;
 import frc.system.DriveBase;
 import frc.system.Elevate;
@@ -46,11 +47,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    Auto.autonomousInit();
   }
 
   @Override
   public void autonomousPeriodic() {
     VisionTracking.seeking();
+    Auto.autonomousPeriodic();
   }
 
   @Override

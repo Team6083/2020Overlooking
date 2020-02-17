@@ -7,7 +7,7 @@ import frc.robot.Robot;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 public class DriveBase {
-    private static DifferentialDrive drive;
+    public static DifferentialDrive drive;
     private static WPI_VictorSPX leftMotor1;
     private static WPI_VictorSPX leftMotor2;
     private static WPI_VictorSPX rightMotor1;

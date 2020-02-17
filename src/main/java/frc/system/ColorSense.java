@@ -65,10 +65,10 @@ public class ColorSense {
         }
 
         if (count >= 7) {
-            TheMotor.setMode(Modes.colorMode);
+         
             TheMotor.runColor(0);
         }
-        if (Robot.xbox.getRawButtonPressed(1)) {
+        if (Robot.xbox.getPOV()==0) {
             count = 0;
             TheMotor.setMode(Modes.colorMode);
             TheMotor.runColor(0.15);
@@ -95,14 +95,14 @@ public class ColorSense {
             default: // This is corrupt data
             }
             if (chooseDetectedColor.equals(colString)) {
-                TheMotor.setMode(Modes.colorMode);
+            
                 TheMotor.runColor(0);
             }
 
-            if (Robot.xbox.getRawButtonPressed(2)) {
+            if (Robot.xbox.getPOV()==90) {
                 count = 0;
                 TheMotor.setMode(Modes.colorMode);
-                TheMotor.runColor(0.15);
+                TheMotor.runColor(0.11);
             }
         }
 

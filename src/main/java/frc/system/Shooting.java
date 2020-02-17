@@ -20,7 +20,6 @@ public class Shooting {
             shootLeft.set(ControlMode.PercentOutput, 0.7);
             TheMotor.shoot(-0.7);
         } else {
-            TheMotor.setMode(Modes.shootMode);
             shootLeft.set(ControlMode.PercentOutput, 0);
             TheMotor.shoot(0);
         }

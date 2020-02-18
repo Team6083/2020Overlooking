@@ -13,6 +13,8 @@ public class DriveBase {
     // private static WPI_VictorSPX leftMotor2;
     // private static WPI_VictorSPX rightMotor1;
     // private static WPI_VictorSPX rightMotor2;
+
+    // temporary motor
     private static VictorSP leftMotor1;
     private static VictorSP leftMotor2;
     private static VictorSP rightMotor1;

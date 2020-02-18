@@ -15,6 +15,7 @@ import frc.system.Elevate;
 import frc.system.Shooting;
 import frc.system.SuckSent;
 import frc.system.VisionTracking;
+import frc.system.auto.AutoEngine;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -35,25 +36,28 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    xbox = new XBox(0);
-    TheMotor.init();
-    ColorSense.init();
+    // xbox = new XBox(0);
+    // TheMotor.init();
+    // ColorSense.init();
     DriveBase.init();
-    Elevate.init();
-    Shooting.init();
-    VisionTracking.init();
-    SuckSent.init();
+    // Elevate.init();
+    // Shooting.init();
+    // VisionTracking.init();
+    // SuckSent.init();
+    AutoEngine.init();
   }
 
   @Override
   public void autonomousInit() {
-    Auto.autonomousInit();
+    // Auto.autonomousInit();
+    AutoEngine.start();
   }
 
   @Override
   public void autonomousPeriodic() {
-    VisionTracking.seeking();
-    Auto.autonomousPeriodic();
+    // VisionTracking.seeking();
+    // Auto.autonomousPeriodic();
+    AutoEngine.loop();
   }
 
   @Override

@@ -71,7 +71,7 @@ public class ColorSense {
         if (Robot.xbox.getPOV()==0) {
             count = 0;
             TheMotor.setMode(Modes.colorMode);
-            TheMotor.runColor(0.15);
+            TheMotor.runColor(0.2);
         }
 
         SmartDashboard.putNumber("count", count);
@@ -102,7 +102,7 @@ public class ColorSense {
             if (Robot.xbox.getPOV()==90) {
                 count = 0;
                 TheMotor.setMode(Modes.colorMode);
-                TheMotor.runColor(0.11);
+                TheMotor.runColor(0.14);
             }
         }
 

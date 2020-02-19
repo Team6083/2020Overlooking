@@ -7,9 +7,6 @@ public class Step extends AutoEngine {
         switch (step) {
             case 0:
                 currentStep = "walk1";
-                // eWalker.walk(10);
-                // leftSpeed = eWalker.getLeftSpeed();
-                // rightSpeed = eWalker.getRightSpeed();
                 if (autoTimer.get() < 2) {
                     leftSpeed = 0.2;
                     rightSpeed = 0.2;
@@ -33,11 +30,6 @@ public class Step extends AutoEngine {
                 break;
             case 2:
                 currentStep = "walk2";
-                // eWalker.walk(10);
-                // leftSpeed = eWalker.getLeftSpeed();
-                // rightSpeed = eWalker.getRightSpeed();
-                gWalker.setTargetAngle(0);
-                gWalker.calculate(leftSpeed, rightSpeed);
                 if (autoTimer.get() < 2) {
                     leftSpeed = 0.2;
                     rightSpeed = 0.2;
@@ -47,10 +39,11 @@ public class Step extends AutoEngine {
                     gyro.reset();
                     nextStep();
                 }
+                gWalker.setTargetAngle(0);
                 break;
             case 3:
                 currentStep = "turn2";
-                gWalker.setTargetAngle(76);
+                gWalker.setTargetAngle(63);
                 gWalker.calculate(leftSpeed, rightSpeed);
                 if (gWalker.getErrorAngle() < errAngle) {
                     gyro.reset();
@@ -61,8 +54,6 @@ public class Step extends AutoEngine {
                 break;
             case 4:
                 currentStep = "walk3";
-                gWalker.setTargetAngle(0);
-                gWalker.calculate(leftSpeed, rightSpeed);
                 if (autoTimer.get() < 2) {
                     leftSpeed = 0.2;
                     rightSpeed = 0.2;
@@ -71,8 +62,14 @@ public class Step extends AutoEngine {
                     leftSpeed = 0;
                     rightSpeed = 0;
                     gyro.reset();
+                    nextStep();
                 }
+                gWalker.setTargetAngle(0);
                 break;
         }
     }
 }
+
+// eWalker.walk(10);
+// leftSpeed = eWalker.getLeftSpeed();
+// rightSpeed = eWalker.getRightSpeed();

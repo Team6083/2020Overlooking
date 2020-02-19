@@ -4,7 +4,6 @@ import org.team6083.lib.auto.EncoderWalker;
 import org.team6083.lib.auto.GyroWalker;
 import org.team6083.lib.auto.EncoderWalker.Mode;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
@@ -25,17 +24,18 @@ public class AutoEngine {
 
     public static void init() {
         gyro = new Gyroson(SPI.Port.kMXP);
+        gWalker = new GyroWalker(gyro);
+        leftEnc = new Encoder(0, 1);
+        rightEnc = new Encoder(8, 9);
+        eWalker = new EncoderWalker(leftEnc, rightEnc, Mode.Both);
+        autoTimer = new Timer();
+        
         gyro.calibrate();
         while(gyro.isCalibrating());
         gyro.enableBoardlevelYawReset(true);
         gyro.reset();
-        gWalker = new GyroWalker(gyro);
-        leftEnc = new Encoder(0, 1);
         leftEnc.setReverseDirection(true);
-        rightEnc = new Encoder(8, 9);
         rightEnc.setReverseDirection(false);
-        eWalker = new EncoderWalker(leftEnc, rightEnc, Mode.Both);
-        autoTimer = new Timer();
     }
 
     public static void start() {
@@ -44,16 +44,16 @@ public class AutoEngine {
 		rightSpeed = 0;
 		leftEnc.reset();
         rightEnc.reset();
-        gWalker.setTargetAngle(0);
         autoTimer.reset();
         autoTimer.start();
-        gWalker.setPID(0.004, 0.0005, 0);
+        gWalker.setTargetAngle(0);
+        gWalker.setPID(0.002, 0.0005, 0);
     }
 
     public static void loop() {
         Step.loop();
+
         gWalker.calculate(leftSpeed, rightSpeed);
-		
 		leftSpeed = gWalker.getLeftPower();
 		rightSpeed = gWalker.getRightPower();
 		
@@ -71,7 +71,6 @@ public class AutoEngine {
 		autoTimer.start();
 		leftEnc.reset();
         rightEnc.reset();
-        // gyro.reset();
 		step++;
 	}
 }

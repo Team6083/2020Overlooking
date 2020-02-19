@@ -3,9 +3,6 @@ package frc.system;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import org.team6083.lib.RobotPower;
 
 import edu.wpi.first.wpilibj.controller.PIDController;

@@ -17,7 +17,7 @@ public class SuckSent {
 
     private static AnalogInput analogInput;
     private static double distanceWantBallToMove = 3000;// this variable need to be tune
-    private static int analogDistance = 70;
+    private static int analogDistance = 100;
     private static double shootAmp = 3.7;
 
     public static void init() {

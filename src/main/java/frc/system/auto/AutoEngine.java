@@ -70,7 +70,8 @@ public class AutoEngine {
 		autoTimer.reset();
 		autoTimer.start();
 		leftEnc.reset();
-		rightEnc.reset();
+        rightEnc.reset();
+        // gyro.reset();
 		step++;
 	}
 }

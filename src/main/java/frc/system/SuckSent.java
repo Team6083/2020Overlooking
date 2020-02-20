@@ -18,7 +18,7 @@ public class SuckSent {
     private static AnalogInput analogInput;
     private static double distanceWantBallToMove = 3000;// this variable need to be tune
     private static int analogDistance = 100;
-    private static double shootAmp = 3.7;
+    private static double shootAmp = 4.5;
 
     public static void init() {
         RobotPower.init(0);
@@ -51,6 +51,8 @@ public class SuckSent {
         if(power.getPortCurrent() < shootAmp && power.getPortCurrent() != 0) {
             sent.set(ControlMode.PercentOutput, 0.6);
         }
+
+        
 
         SmartDashboard.putNumber("shoot motor amp", power.getPortCurrent()); // 3.4
 

@@ -47,6 +47,7 @@ public class VisionTracking {
       Update_Limelight_Tracking();
       DriveBase.track(m_LimelightDriveCommand, m_LimelightSteerCommand, false);
       if (detectIfTrackingFinished()) {
+        getButtonPressed = false;
         setLEDMode(2);
       }
     }

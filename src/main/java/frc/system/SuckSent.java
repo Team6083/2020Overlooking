@@ -16,9 +16,9 @@ public class SuckSent {
     private static RobotPower power;
 
     private static AnalogInput analogInput;
-    private static double distanceWantBallToMove = 3000;// this variable need to be tune
+    private static double distanceWantBallToMove = 4000;// this variable need to be tune
     private static int analogDistance = 100;
-    private static double shootAmp = 4.5;
+    private static double shootAmp = 4.1;
 
     public static void init() {
         RobotPower.init(0);
@@ -37,22 +37,25 @@ public class SuckSent {
             sent.set(ControlMode.PercentOutput, 0.2);
         }
 
-        
         if (sent.getSensorCollection().getQuadraturePosition() >= distanceWantBallToMove) {
             sent.set(ControlMode.PercentOutput, 0);
         }
 
         if (Robot.xbox.getYButton()) {
             suck.set(ControlMode.PercentOutput, 0.5);
+        } else if (Robot.xbox.getPOV() == 270) {
+            suck.set(ControlMode.PercentOutput, -0.5);
+            sent.set(ControlMode.PercentOutput, -0.3);
+        } else if (Robot.xbox.getPOV() == 180) {
+            suck.set(ControlMode.PercentOutput, 0);
+            sent.set(ControlMode.PercentOutput, 0);
         } else {
             suck.set(ControlMode.PercentOutput, 0);
         }
 
-        if(power.getPortCurrent() < shootAmp && power.getPortCurrent() != 0) {
+        if (power.getPortCurrent() < shootAmp && power.getPortCurrent() != 0) {
             sent.set(ControlMode.PercentOutput, 0.6);
         }
-
-        
 
         SmartDashboard.putNumber("shoot motor amp", power.getPortCurrent()); // 3.4
 

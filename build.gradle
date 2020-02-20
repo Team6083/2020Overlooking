@@ -67,7 +67,7 @@ dependencies {
     // upon debugging
     simulation wpi.deps.sim.gui(wpi.platforms.desktop, false)
 
-    compile 'com.github.team6083:OverRobotLib:2020.1.0-alpha-5'
+    compile 'com.github.team6083:OverRobotLib:2020.1.0-beta-1'
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')

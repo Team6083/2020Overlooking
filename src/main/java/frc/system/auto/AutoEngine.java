@@ -61,6 +61,7 @@ public class AutoEngine {
         
         SmartDashboard.putString("CurrentStep", currentStep);
         SmartDashboard.putNumber("Timer", autoTimer.get());
+        SmartDashboard.putNumber("currentAngle", gWalker.getCurrentAngle());
         SmartDashboard.putNumber("errorAngle", gWalker.getErrorAngle());
     }
 

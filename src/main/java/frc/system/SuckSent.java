@@ -18,7 +18,7 @@ public class SuckSent {
     private static AnalogInput analogInput;
     private static double distanceWantBallToMove = 4000;// this variable need to be tune
     private static int analogDistance = 100;
-    private static double shootAmp = 4.1;
+    private static double shootAmp = 5.1;
 
     public static void init() {
         RobotPower.init(0);
@@ -32,24 +32,25 @@ public class SuckSent {
     }
 
     public static void teleop() {
-        if (analogInput.getValue() > analogDistance) {
+        if (analogInput.getValue() > analogDistance && !Robot.xbox.getRawButton(9)) {
             sent.getSensorCollection().setQuadraturePosition(0, 100);
             sent.set(ControlMode.PercentOutput, 0.2);
         }
 
-        if (sent.getSensorCollection().getQuadraturePosition() >= distanceWantBallToMove) {
+        if (sent.getSensorCollection().getQuadraturePosition() >= distanceWantBallToMove && !Robot.xbox.getRawButton(9)) {
             sent.set(ControlMode.PercentOutput, 0);
         }
 
         if (Robot.xbox.getYButton()) {
             suck.set(ControlMode.PercentOutput, 0.5);
-        } else if (Robot.xbox.getPOV() == 270) {
+        }else if (Robot.xbox.getRawButtonPressed(9)){
             suck.set(ControlMode.PercentOutput, -0.5);
-            sent.set(ControlMode.PercentOutput, -0.3);
-        } else if (Robot.xbox.getPOV() == 180) {
+            sent.set(ControlMode.PercentOutput, -0.5);
+        }
+        else if(Robot.xbox.getRawButtonReleased(9)) {
             suck.set(ControlMode.PercentOutput, 0);
             sent.set(ControlMode.PercentOutput, 0);
-        } else {
+        }else {
             suck.set(ControlMode.PercentOutput, 0);
         }
 

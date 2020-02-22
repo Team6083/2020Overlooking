@@ -13,7 +13,6 @@ public class VisionTracking {
   private static boolean m_LimelightHasValidTarget = false;
   private static double m_LimelightDriveCommand = 0.0;
   private static double m_LimelightSteerCommand = 0.0;
-  private static double steering_adjust = 0.0;
 
   private static PIDController PID_controller;
   private static Timer time;
@@ -71,7 +70,7 @@ public class VisionTracking {
     m_LimelightHasValidTarget = true;
 
     // wpilib function use to adjust the robot to aiming target
-    steering_adjust = -PID_controller.calculate(tx, 0.0);
+    double steering_adjust = -PID_controller.calculate(tx, 0.0);
 
     // use MAX_DRIVE to limit robot turning speed
     if (steering_adjust > 0) {
@@ -107,7 +106,7 @@ public class VisionTracking {
     if (tv == 0.0) {
       // We don't see the target, seek for the target by spinning in place at a safe
       // speed.
-      steering_adjust = 0.3;
+      m_LimelightSteerCommand = 0.3;
       m_LimelightDriveCommand = 0.0;
       DriveBase.track(m_LimelightDriveCommand, m_LimelightSteerCommand, false);
     } else {

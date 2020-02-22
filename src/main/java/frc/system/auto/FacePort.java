@@ -12,10 +12,6 @@ public class FacePort extends AutoEngine {
                 /* take aim */
                 VisionTracking.seeking();
                 break;
-            case 1:
-                /* shoot */
-                Shooting.shoot(4); // value needs to be tuned
-                break;
         }
     }
 }

@@ -37,10 +37,6 @@ public class LoadingBay extends AutoEngine {
                 /* take aim */
                 VisionTracking.seeking();
                 break;
-            case 3:
-                /* shoot */
-                Shooting.shoot(4); // value needs to be tuned
-                break;
         }
     }
 }

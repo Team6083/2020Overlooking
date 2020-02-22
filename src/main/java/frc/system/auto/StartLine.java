@@ -1,6 +1,7 @@
 package frc.system.auto;
 
 import frc.system.Shooting;
+import frc.system.VisionTracking;
 
 public class StartLine extends AutoEngine {
     private static final int errAngle = 5;
@@ -11,7 +12,9 @@ public class StartLine extends AutoEngine {
                 /* turn 85 */
                 gWalker.setTargetAngle(85);
                 gWalker.calculate(leftSpeed, rightSpeed);
-                if(gWalker.getErrorAngle() < errAngle) {
+                if (gWalker.getErrorAngle() < errAngle) {
+                    leftSpeed = 0;
+                    rightSpeed = 0;
                     gyro.reset();
                     nextStep();
                 }
@@ -20,11 +23,11 @@ public class StartLine extends AutoEngine {
                 break;
             case 1:
                 /* walk 78.85 inch */
-                eWalker.walk(10);  // value needs to be tuned
+                eWalker.walk(10); // value needs to be tuned
                 leftSpeed = eWalker.getLeftSpeed();
                 rightSpeed = eWalker.getRightSpeed();
                 gWalker.setTargetAngle(0);
-                if(eWalker.getLeftDis() > 10 || eWalker.getRightDis() > 10) {
+                if (eWalker.getLeftDis() > 10 || eWalker.getRightDis() > 10) {
                     leftSpeed = 0;
                     rightSpeed = 0;
                     gyro.reset();
@@ -32,8 +35,12 @@ public class StartLine extends AutoEngine {
                 }
                 break;
             case 2:
+                /* take aim */
+                VisionTracking.seeking();
+                break;
+            case 3:
                 /* shoot */
-                Shooting.shoot(4);  // value needs to be tuned
+                Shooting.shoot(4); // value needs to be tuned
                 break;
         }
     }

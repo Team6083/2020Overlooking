@@ -1,21 +1,24 @@
 package frc.system.auto;
 
-public class AutoStep extends AutoEngine{
+import frc.system.Shooting;
+import frc.system.VisionTracking;
+
+public class FacePort extends AutoEngine{
     private static int errAngle = 5;
 
     public static void loop(){
         switch(step){
             case 0:
                 /* take aim */
-                // vision tracking take aim
+                VisionTracking.seeking();
                 break;
             case 1:
                 /* shoot */
-                // shoot 3 ball
+                Shooting.shoot(4);  // value needs to be tuned
                 break;
             case 2:
-                /* turn 90 */
-                gWalker.setTargetAngle(90);
+                /* turn 85 */
+                gWalker.setTargetAngle(85);
                 gWalker.calculate(leftSpeed, rightSpeed);
                 if(gWalker.getErrorAngle() < errAngle) {
                     gyro.reset();
@@ -25,7 +28,7 @@ public class AutoStep extends AutoEngine{
                 rightSpeed = 0;
                 break;
             case 3:
-                /* walk to side */
+                /* walk 78.85 inch to side */
                 eWalker.walk(10);  // value needs to be tuned
                 leftSpeed = eWalker.getLeftSpeed();
                 rightSpeed = eWalker.getRightSpeed();

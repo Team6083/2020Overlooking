@@ -29,7 +29,7 @@ public class VisionTracking {
 
   public static void init() {
     time = new Timer();
-    PID_controller = new PIDController(0.5, 0.5, 0);
+    PID_controller = new PIDController(0.15, 0.01, 0);
     setCamMode(1);
     setLEDMode(0);
   }
@@ -39,7 +39,7 @@ public class VisionTracking {
     SmartDashboard.putNumber("Robot voltage", RobotPower.getRobotVoltage());
     SmartDashboard.putBoolean("A Vision tracking button pressed: ", getButtonPressed);
     if (Robot.xbox.getStartButtonPressed()) {
-      getButtonPressed = true;
+      getButtonPressed = !getButtonPressed;
     }
     if (getButtonPressed) {
       setCamMode(0);
@@ -47,6 +47,7 @@ public class VisionTracking {
       Update_Limelight_Tracking();
       DriveBase.track(m_LimelightDriveCommand, m_LimelightSteerCommand, false);
       if (detectIfTrackingFinished()) {
+        getButtonPressed = false;
         setLEDMode(2);
       }
     }
@@ -81,7 +82,7 @@ public class VisionTracking {
       steering_adjust = -MAX_STEER;
     }
 
-    double drive_cmd = -PID_controller.calculate(ty, DESIRED_TARGET_Y_AXIS);
+    double drive_cmd = PID_controller.calculate(ty, DESIRED_TARGET_Y_AXIS);
 
     // use MAX_DRIVE to limit robot forward speed
     if (drive_cmd > 0) {
@@ -115,6 +116,7 @@ public class VisionTracking {
       if (detectIfTrackingFinished()) {
         setLEDMode(2);
         setCamMode(1);
+        Shooting.shoot();
         automaticShootingFinished = true;
       }
     }

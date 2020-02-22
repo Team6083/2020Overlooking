@@ -31,7 +31,7 @@ public class VisionTracking {
     time = new Timer();
     PID_controller = new PIDController(0.1, 0.0008, 0.0008);
     setCamMode(1);
-    setLEDMode(0);
+    setLEDMode(1);
   }
 
   public static void teleop() {

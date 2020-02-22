@@ -49,11 +49,13 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     // AutoEngine.start();
+    DriveBase.autoin();
   }
 
   @Override
   public void autonomousPeriodic() {
-    VisionTracking.seeking();
+    DriveBase.auto();
+    // VisionTracking.seeking();
     // AutoEngine.loop();
   }
 

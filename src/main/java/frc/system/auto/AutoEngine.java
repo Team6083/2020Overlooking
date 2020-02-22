@@ -51,7 +51,7 @@ public class AutoEngine {
     }
 
     public static void loop() {
-        Step.loop();
+        //Step.loop();
 
         gWalker.calculate(leftSpeed, rightSpeed);
 		leftSpeed = gWalker.getLeftPower();

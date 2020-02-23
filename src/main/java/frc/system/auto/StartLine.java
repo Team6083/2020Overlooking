@@ -11,11 +11,11 @@ public class StartLine extends AutoEngine {
             case 0:
                 /* turn 85 */
                 gWalker.setTargetAngle(85);
-                gWalker.calculate(leftSpeed, rightSpeed);
+                gWalker.calculate(leftSpeed, rightSpeed); // TODO: fix
                 if (gWalker.getErrorAngle() < errAngle) {
                     leftSpeed = 0;
                     rightSpeed = 0;
-                    gyro.reset();
+                    gyro.reset(); // TODO: should not reset gyro during match
                     nextStep();
                 }
                 leftSpeed = 0;
@@ -23,14 +23,14 @@ public class StartLine extends AutoEngine {
                 break;
             case 1:
                 /* walk 78.85 inch */
-                eWalker.walk(10); // value needs to be tuned
+                eWalker.walk(78.85);
                 leftSpeed = eWalker.getLeftSpeed();
                 rightSpeed = eWalker.getRightSpeed();
                 gWalker.setTargetAngle(0);
-                if (eWalker.getLeftDis() > 10 || eWalker.getRightDis() > 10) {
+                if (eWalker.getLeftDis() > 10 || eWalker.getRightDis() > 10) { // TODO: set the acceptabe error
                     leftSpeed = 0;
                     rightSpeed = 0;
-                    gyro.reset();
+                    gyro.reset(); // TODO: should not reset gyro during match
                     nextStep();
                 }
                 break;

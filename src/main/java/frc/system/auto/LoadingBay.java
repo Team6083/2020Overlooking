@@ -11,11 +11,11 @@ public class LoadingBay extends AutoEngine {
             case 0:
                 /* turn 80 */
                 gWalker.setTargetAngle(80);
-                gWalker.calculate(leftSpeed, rightSpeed);
+                gWalker.calculate(leftSpeed, rightSpeed); //TODO: fix
                 if (gWalker.getErrorAngle() < errAngle) {
                     leftSpeed = 0;
                     rightSpeed = 0;
-                    gyro.reset();
+                    gyro.reset(); //TODO: should not reset gyro during match
                     nextStep();
                 }
                 leftSpeed = 0;
@@ -23,13 +23,13 @@ public class LoadingBay extends AutoEngine {
                 break;
             case 1:
                 /* walk 131.68 inch */
-                eWalker.walk(20); // value needs to be tuned
+                eWalker.walk(131.68);
                 leftSpeed = eWalker.getLeftSpeed();
                 rightSpeed = eWalker.getRightSpeed();
-                if (eWalker.getLeftDis() < 20 || eWalker.getRightDis() < 20) { // value needs to be tuned
+                if (eWalker.getLeftDis() < 20 || eWalker.getRightDis() < 20) { //TODO: set the acceptabe error
                     leftSpeed = 0;
                     rightSpeed = 0;
-                    gyro.reset();
+                    gyro.reset(); //TODO: should not reset gyro during match
                     nextStep();
                 }
                 break;

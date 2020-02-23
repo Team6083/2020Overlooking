@@ -41,17 +41,16 @@ public class SuckSent {
             sent.set(ControlMode.PercentOutput, 0);
         }
 
-        if (Robot.xbox.getYButton()) {
-            suck.set(ControlMode.PercentOutput, 0.6);
+        if (Robot.xbox.getYButtonPressed()) {
+            suck.set(ControlMode.PercentOutput, 0.4);
+        }else if (Robot.xbox.getYButtonReleased()){
+            suck.set(ControlMode.PercentOutput, 0);
         }else if (Robot.xbox.getRawButtonPressed(9)){
-            suck.set(ControlMode.PercentOutput, -0.4);
-            sent.set(ControlMode.PercentOutput, -0.4);
-        }
-        else if(Robot.xbox.getRawButtonReleased(9)) {
+            suck.set(ControlMode.PercentOutput, -0.5);
+            sent.set(ControlMode.PercentOutput, -0.3);
+        }else if(Robot.xbox.getRawButtonReleased(9)) {
             suck.set(ControlMode.PercentOutput, 0);
             sent.set(ControlMode.PercentOutput, 0);
-        }else {
-            suck.set(ControlMode.PercentOutput, 0);
         }
 
         if (power.getPortCurrent() < shootAmp && power.getPortCurrent() != 0) {

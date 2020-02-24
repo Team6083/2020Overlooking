@@ -47,7 +47,7 @@ public class AutoEngine {
         autoTimer.reset();
         autoTimer.start();
         gWalker.setTargetAngle(0);
-        gWalker.setPID(0.002, 0.0005, 0);
+        gWalker.setPID(0.021, 0, 0.0015);
     }
 
     public static void loop() {

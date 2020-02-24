@@ -21,11 +21,12 @@ public class AutoEngine {
     protected static String currentStep;
     protected static int step;
     protected static double leftSpeed, rightSpeed;
+    protected static double disPerPulse = 0.05236;
 
     public static void init() {
         gyro = new Gyroson(SPI.Port.kMXP);
         gWalker = new GyroWalker(gyro);
-        leftEnc = new Encoder(0, 1);
+        leftEnc = new Encoder(6, 7);
         rightEnc = new Encoder(8, 9);
         eWalker = new EncoderWalker(leftEnc, rightEnc, Mode.Both);
         autoTimer = new Timer();
@@ -36,6 +37,8 @@ public class AutoEngine {
         gyro.reset();
         leftEnc.setReverseDirection(true);
         rightEnc.setReverseDirection(false);
+        leftEnc.setDistancePerPulse(disPerPulse);
+        rightEnc.setDistancePerPulse(disPerPulse);
     }
 
     public static void start() {
@@ -51,13 +54,14 @@ public class AutoEngine {
     }
 
     public static void loop() {
-        AutoStep.loop(0,0);
+        AutoStep.loop(90,50);
 
         gWalker.calculate(leftSpeed, rightSpeed);
 		leftSpeed = gWalker.getLeftPower();
-		rightSpeed = gWalker.getRightPower();
-		
-        DriveBase.directControl(leftSpeed, -rightSpeed);
+        rightSpeed = gWalker.getRightPower();
+        if(!currentStep.equals("aim")){
+            DriveBase.directControl(leftSpeed, -rightSpeed);
+        }
         
         SmartDashboard.putString("CurrentStep", currentStep);
 		SmartDashboard.putNumber("Current Angle", gWalker.getCurrentAngle());

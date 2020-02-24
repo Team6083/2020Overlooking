@@ -5,7 +5,7 @@ import frc.system.VisionTracking;
 public class AutoStep extends AutoEngine {
     private static final int errAngle = 5;
 
-    public static void loop(int angle, int dis) {
+    public static void loop(int angle, double dis) {
         switch (step) {
             case 0:
                 /* turn "angle" */

@@ -9,6 +9,7 @@ public class AutoStep extends AutoEngine {
         switch (step) {
             case 0:
                 /* turn "angle" */
+                currentStep = "turn";
                 gWalker.setTargetAngle(angle);
                 if (gWalker.getErrorAngle() < errAngle) {
                     leftSpeed = 0;
@@ -20,6 +21,7 @@ public class AutoStep extends AutoEngine {
                 break;
             case 1:
                 /* walk "dis" inch */
+                currentStep = "walk";
                 eWalker.walk(dis);
                 leftSpeed = eWalker.getLeftSpeed();
                 rightSpeed = eWalker.getRightSpeed();
@@ -32,6 +34,7 @@ public class AutoStep extends AutoEngine {
                 break;
             case 2:
                 /* take aim and shoot */
+                currentStep = "aim & shoot";
                 VisionTracking.seeking();
                 break;
         }

@@ -60,9 +60,12 @@ public class AutoEngine {
         DriveBase.directControl(leftSpeed, -rightSpeed);
         
         SmartDashboard.putString("CurrentStep", currentStep);
-        SmartDashboard.putNumber("Timer", autoTimer.get());
-        SmartDashboard.putNumber("currentAngle", gWalker.getCurrentAngle());
-        SmartDashboard.putNumber("errorAngle", gWalker.getErrorAngle());
+		SmartDashboard.putNumber("Current Angle", gWalker.getCurrentAngle());
+		SmartDashboard.putNumber("Target Angle", gWalker.getTargetAngle());
+		SmartDashboard.putNumber("Error Angle", gWalker.getErrorAngle());
+		SmartDashboard.putNumber("Left Dis", eWalker.getLeftDis());
+		SmartDashboard.putNumber("Right Dis", eWalker.getRightDis());
+		SmartDashboard.putNumber("Timer", autoTimer.get());
     }
 
     protected static void nextStep() {

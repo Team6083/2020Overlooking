@@ -30,14 +30,16 @@ public class VisionTracking {
 
   public static void init() {
     time = new Timer();
-    PID_controller = new PIDController(0.1, 0.0008, 0.0008);
-    setCamMode(1);
+    PID_controller = new PIDController(0.03, 0, 0);
+    setCamMode(0);
     setLEDMode(3);
   }
 
   public static void teleop() {
     SmartDashboard.putNumber("Robot voltage", RobotPower.getRobotVoltage());
     SmartDashboard.putBoolean("A Vision tracking button pressed: ", ledgate);
+    SmartDashboard.putNumber("m_LimelightDriveCommand", m_LimelightDriveCommand);
+    SmartDashboard.putNumber("m_LimelightSteerCommand", m_LimelightSteerCommand);
 
     if (Robot.xbox.getStartButtonPressed()) {
       ledgate = !ledgate;
@@ -144,11 +146,11 @@ public class VisionTracking {
         time.reset();
       }
 
-      if (time.get() > 2) {
-        detectedFinished = true;
-        time.stop();
-        time.reset();
-      }
+      // if (time.get() > 2) {
+      //   detectedFinished = true;
+      //   time.stop();
+      //   time.reset();
+      // }
     } else {
       detectedFinished = false;
     }

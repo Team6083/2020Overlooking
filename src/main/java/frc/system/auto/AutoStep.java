@@ -12,8 +12,6 @@ public class AutoStep extends AutoEngine {
                 currentStep = "turn";
                 gWalker.setTargetAngle(angle);
                 if (gWalker.getErrorAngle() < errAngle) {
-                    leftSpeed = 0;
-                    rightSpeed = 0;
                     nextStep();
                 }
                 leftSpeed = 0;
@@ -27,8 +25,6 @@ public class AutoStep extends AutoEngine {
                 rightSpeed = eWalker.getRightSpeed();
                 gWalker.setTargetAngle(0);
                 if (eWalker.getLeftDis() > dis || eWalker.getRightDis() > dis) {
-                    leftSpeed = 0;
-                    rightSpeed = 0;
                     nextStep();
                 }
                 break;

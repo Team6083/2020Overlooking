@@ -75,6 +75,8 @@ public class AutoEngine {
 		autoTimer.start();
 		leftEnc.reset();
         rightEnc.reset();
+        leftSpeed = 0;
+        rightSpeed = 0;
 		step++;
 	}
 }

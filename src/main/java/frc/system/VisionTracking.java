@@ -24,7 +24,7 @@ public class VisionTracking {
 
   static final double MAX_DRIVE = 0.7; // Simple speed limit so we don't drive too fast
   static final double MAX_STEER = 0.7;
-  static final double ACCEPTABLE_ERROR_RANGE = 0.2;
+  static final double ACCEPTABLE_ERROR_RANGE = 0.01;
 
   static boolean ledgate = false;
 
@@ -122,7 +122,6 @@ public class VisionTracking {
       if (detectIfTrackingFinished()) {
         setLEDMode(1);
         setCamMode(1);
-        Shooting.shoot();
         automaticShootingFinished = true;
       }
     }

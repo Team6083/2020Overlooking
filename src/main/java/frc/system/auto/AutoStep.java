@@ -16,7 +16,7 @@ public class AutoStep extends AutoEngine {
                 if (gWalker.getErrorAngle() < errAngle) {
                     nextStep();
                 }
-                leftSpeed = 0; 
+                leftSpeed = 0;
                 rightSpeed = 0;
                 break;
             case 1:
@@ -33,6 +33,9 @@ public class AutoStep extends AutoEngine {
                 /* take aim */
                 currentStep = "aim";
                 VisionTracking.seeking();
+                if (VisionTracking.detectIfTrackingFinished()) {
+                    nextStep();
+                }
                 break;
             case 3:
                 /* shoot */

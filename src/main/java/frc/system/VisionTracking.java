@@ -116,7 +116,6 @@ public class VisionTracking {
       if (detectIfTrackingFinished()) {
         setLEDMode(2);
         setCamMode(1);
-        Shooting.shoot(2);
         automaticShootingFinished = true;
       }
     }

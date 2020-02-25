@@ -14,7 +14,7 @@ import frc.system.Elevate;
 import frc.system.Shooting;
 import frc.system.SuckSent;
 import frc.system.VisionTracking;
-// import frc.system.auto.AutoEngine;
+import frc.system.auto.AutoEngine;
 
 /**
  * The VM is configured to automatically run this class, and to call the

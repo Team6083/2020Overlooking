@@ -28,6 +28,18 @@ public class Shooting {
         }
     }
 
+    public static void shoot(){
+        timer.reset();
+        timer.start();
+        TheMotor.setMode(Modes.shootMode);
+        shootLeft.set(ControlMode.PercentOutput, 0.9);
+        TheMotor.shoot(-0.9);
+        if(timer.get() > 2) {
+            shootLeft.set(ControlMode.PercentOutput, 0);
+            TheMotor.shoot(0);
+        }
+    }
+
     public static void shoot(int sec){
         timer.reset();
         timer.start();

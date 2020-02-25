@@ -13,7 +13,7 @@ public class VisionTracking {
   private static boolean m_LimelightHasValidTarget = false;
   private static double m_LimelightDriveCommand = 0.0;
   private static double m_LimelightSteerCommand = 0.0;
-  private static double steering_adjust = 0.0;
+
 
   private static PIDController PID_controller;
   private static Timer time;
@@ -24,32 +24,40 @@ public class VisionTracking {
 
   static final double MAX_DRIVE = 0.7; // Simple speed limit so we don't drive too fast
   static final double MAX_STEER = 0.7;
+  static final double ACCEPTABLE_ERROR_RANGE = 0.01;
 
-  static boolean getButtonPressed = false;
+  static boolean ledgate = false;
 
   public static void init() {
     time = new Timer();
-    PID_controller = new PIDController(0.15, 0.01, 0);
-    setCamMode(1);
-    setLEDMode(0);
+    PID_controller = new PIDController(0.03, 0, 0);
+    setCamMode(0);
+    setLEDMode(3);
   }
 
   public static void teleop() {
-    setLEDMode(1);
     SmartDashboard.putNumber("Robot voltage", RobotPower.getRobotVoltage());
-    SmartDashboard.putBoolean("A Vision tracking button pressed: ", getButtonPressed);
+    SmartDashboard.putBoolean("A Vision tracking button pressed: ", ledgate);
+    SmartDashboard.putNumber("m_LimelightDriveCommand", m_LimelightDriveCommand);
+    SmartDashboard.putNumber("m_LimelightSteerCommand", m_LimelightSteerCommand);
+
     if (Robot.xbox.getStartButtonPressed()) {
-      getButtonPressed = !getButtonPressed;
+      ledgate = !ledgate;
     }
-    if (getButtonPressed) {
+
+    if (ledgate) {
       setCamMode(0);
       setLEDMode(3);
       Update_Limelight_Tracking();
       DriveBase.track(m_LimelightDriveCommand, m_LimelightSteerCommand, false);
       if (detectIfTrackingFinished()) {
-        getButtonPressed = false;
-        setLEDMode(2);
+        ledgate = false;
+        setCamMode(1);
+        setLEDMode(1);
       }
+    } else {
+      setCamMode(1);
+      setLEDMode(1);
     }
   }
 
@@ -71,7 +79,7 @@ public class VisionTracking {
     m_LimelightHasValidTarget = true;
 
     // wpilib function use to adjust the robot to aiming target
-    steering_adjust = -PID_controller.calculate(tx, 0.0);
+    double steering_adjust = -PID_controller.calculate(tx, 0.0);
 
     // use MAX_DRIVE to limit robot turning speed
     if (steering_adjust > 0) {
@@ -107,14 +115,14 @@ public class VisionTracking {
     if (tv == 0.0) {
       // We don't see the target, seek for the target by spinning in place at a safe
       // speed.
-      steering_adjust = 0.3;
+      m_LimelightSteerCommand = 0.3;
       m_LimelightDriveCommand = 0.0;
       DriveBase.track(m_LimelightDriveCommand, m_LimelightSteerCommand, false);
     } else {
       Update_Limelight_Tracking();
       DriveBase.track(m_LimelightDriveCommand, m_LimelightSteerCommand, false);
       if (detectIfTrackingFinished()) {
-        setLEDMode(2);
+        setLEDMode(1);
         setCamMode(1);
         automaticShootingFinished = true;
       }
@@ -128,17 +136,25 @@ public class VisionTracking {
    */
   public static boolean detectIfTrackingFinished() {
     boolean detectedFinished = false;
-    if (m_LimelightSteerCommand < 0.01 && m_LimelightDriveCommand < 0.01) {
-      time.start();
-      if (m_LimelightSteerCommand > 0.01 || m_LimelightDriveCommand > 0.01) {
+    if (m_LimelightSteerCommand < ACCEPTABLE_ERROR_RANGE && m_LimelightDriveCommand < ACCEPTABLE_ERROR_RANGE) {
+      if (time.get() == 0) {
+        time.reset();
+        time.start();
+      }
+
+      if (m_LimelightSteerCommand > ACCEPTABLE_ERROR_RANGE || m_LimelightDriveCommand > ACCEPTABLE_ERROR_RANGE) {
         time.reset();
       }
-      if (time.get() > 0.5) {
-        detectedFinished = true;
-      }
+
+      // if (time.get() > 2) {
+      //   detectedFinished = true;
+      //   time.stop();
+      //   time.reset();
+      // }
     } else {
       detectedFinished = false;
     }
+
     return detectedFinished;
   }
 

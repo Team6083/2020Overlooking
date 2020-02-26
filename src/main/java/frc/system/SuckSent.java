@@ -78,4 +78,12 @@ public class SuckSent {
         // analog.getValue();
         // analog.getVoltage();
     }
+
+    public static void autonomousSent() {
+        if (power.getPortCurrent() < shootAmp && power.getPortCurrent() != 0) {
+            sent.set(ControlMode.PercentOutput, 0.6);
+        } else {
+            sent.set(ControlMode.PercentOutput, 0);
+        }
+    }
 }

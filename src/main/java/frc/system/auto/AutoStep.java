@@ -1,6 +1,7 @@
 package frc.system.auto;
 
 import frc.system.Shooting;
+import frc.system.SuckSent;
 import frc.system.VisionTracking;
 
 public class AutoStep extends AutoEngine {
@@ -32,15 +33,19 @@ public class AutoStep extends AutoEngine {
             case 2:
                 /* take aim */
                 currentStep = "aim";
-                VisionTracking.seeking();
                 if (VisionTracking.detectIfTrackingFinished()) {
                     nextStep();
+                } else {
+                    VisionTracking.seeking();
                 }
                 break;
             case 3:
                 /* shoot */
                 currentStep = "shoot";
-                Shooting.shoot(2);
+                leftSpeed = 0;
+                rightSpeed = 0;
+                Shooting.shoot(autoTimer.get() < 5);
+                SuckSent.autonomousSent();
         }
     }
 }

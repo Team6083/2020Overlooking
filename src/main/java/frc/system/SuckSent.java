@@ -37,19 +37,26 @@ public class SuckSent {
             sent.set(ControlMode.PercentOutput, 0.2);
         }
 
-        if (sent.getSensorCollection().getQuadraturePosition() >= distanceWantBallToMove && !Robot.xbox.getRawButton(9)) {
+        if (sent.getSensorCollection().getQuadraturePosition() >= distanceWantBallToMove
+                && !Robot.xbox.getRawButton(9) && !Robot.xbox.getRawButton(10)) {
             sent.set(ControlMode.PercentOutput, 0);
         }
 
         if (Robot.xbox.getYButtonPressed()) {
             suck.set(ControlMode.PercentOutput, 0.4);
-        }else if (Robot.xbox.getYButtonReleased()){
+        } else if (Robot.xbox.getYButtonReleased()) {
             suck.set(ControlMode.PercentOutput, 0);
-        }else if (Robot.xbox.getRawButtonPressed(9)){
+        } else if (Robot.xbox.getRawButtonPressed(9)) {
             suck.set(ControlMode.PercentOutput, -0.5);
             sent.set(ControlMode.PercentOutput, -0.3);
-        }else if(Robot.xbox.getRawButtonReleased(9)) {
+        } else if (Robot.xbox.getRawButtonReleased(9)) {
             suck.set(ControlMode.PercentOutput, 0);
+            sent.set(ControlMode.PercentOutput, 0);
+        }
+
+        if (Robot.xbox.getRawButtonPressed(10))  {
+            sent.set(ControlMode.PercentOutput, 0.2);
+        } else if (Robot.xbox.getRawButtonReleased(10)) {
             sent.set(ControlMode.PercentOutput, 0);
         }
 

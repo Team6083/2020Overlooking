@@ -14,7 +14,7 @@ public class VisionTracking {
   private static double m_LimelightDriveCommand = 0.0;
   private static double m_LimelightSteerCommand = 0.0;
 
-
+  
   private static PIDController PID_controller;
   private static Timer time;
 
@@ -24,13 +24,13 @@ public class VisionTracking {
 
   static final double MAX_DRIVE = 0.7; // Simple speed limit so we don't drive too fast
   static final double MAX_STEER = 0.7;
-  static final double ACCEPTABLE_ERROR_RANGE = 0.01;
+  static final double ACCEPTABLE_ERROR_RANGE = 0.1;
 
   static boolean ledgate = false;
 
   public static void init() {
     time = new Timer();
-    PID_controller = new PIDController(0.03, 0, 0);
+    PID_controller = new PIDController(0.04, 0.035, 0);
     setCamMode(0);
     setLEDMode(3);
   }
@@ -136,7 +136,7 @@ public class VisionTracking {
    */
   public static boolean detectIfTrackingFinished() {
     boolean detectedFinished = false;
-    if (m_LimelightSteerCommand < ACCEPTABLE_ERROR_RANGE && m_LimelightDriveCommand < ACCEPTABLE_ERROR_RANGE) {
+    if (Math.abs(m_LimelightSteerCommand) < ACCEPTABLE_ERROR_RANGE && Math.abs(m_LimelightDriveCommand) < ACCEPTABLE_ERROR_RANGE) {
       if (time.get() == 0) {
         time.reset();
         time.start();
@@ -146,11 +146,11 @@ public class VisionTracking {
         time.reset();
       }
 
-      // if (time.get() > 2) {
-      //   detectedFinished = true;
-      //   time.stop();
-      //   time.reset();
-      // }
+      if (time.get() > 3) {
+        detectedFinished = true;
+        time.stop();
+        time.reset();
+      }
     } else {
       detectedFinished = false;
     }

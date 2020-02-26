@@ -30,7 +30,7 @@ public class VisionTracking {
 
   public static void init() {
     time = new Timer();
-    PID_controller = new PIDController(0.04, 0.035, 0);
+    PID_controller = new PIDController(0.025, 0.047, 0.000);
     setCamMode(0);
     setLEDMode(3);
   }
@@ -90,7 +90,7 @@ public class VisionTracking {
       steering_adjust = -MAX_STEER;
     }
 
-    double drive_cmd = PID_controller.calculate(ty, DESIRED_TARGET_Y_AXIS);
+    double drive_cmd = PID_controller.calculate(ty, 0);
 
     // use MAX_DRIVE to limit robot forward speed
     if (drive_cmd > 0) {
@@ -128,6 +128,8 @@ public class VisionTracking {
       }
     }
     SmartDashboard.putBoolean("whether automatic shooting finished", automaticShootingFinished);
+    SmartDashboard.putNumber("m_LimelightDriveCommand", m_LimelightDriveCommand);
+    SmartDashboard.putNumber("m_LimelightSteerCommand", m_LimelightSteerCommand);
   }
 
   /**
@@ -142,7 +144,7 @@ public class VisionTracking {
         time.start();
       }
 
-      if (m_LimelightSteerCommand > ACCEPTABLE_ERROR_RANGE || m_LimelightDriveCommand > ACCEPTABLE_ERROR_RANGE) {
+      if (Math.abs(m_LimelightSteerCommand) > ACCEPTABLE_ERROR_RANGE || Math.abs(m_LimelightDriveCommand) > ACCEPTABLE_ERROR_RANGE) {
         time.reset();
       }
 

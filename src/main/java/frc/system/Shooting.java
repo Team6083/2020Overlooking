@@ -9,9 +9,10 @@ import frc.robot.TheMotor.Modes;
 
 public class Shooting {
     private static WPI_VictorSPX shootLeft;
+    private static final int SL = 7;
 
     public static void init() {
-        shootLeft = new WPI_VictorSPX(7);
+        shootLeft = new WPI_VictorSPX(SL);
     }
 
     public static void teleop() {

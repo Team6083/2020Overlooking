@@ -17,9 +17,15 @@ public class ColorSense {
     private static ColorSensorV3 m_colorSensor;
     private static ColorMatch m_colorMatcher;
 
-    static String lastDetectedColor = "";
-    static String chooseDetectedColor = "";
-    static int count = 0;
+    private static String lastDetectedColor;
+    private static String chooseDetectedColor;
+    private static String gameData;
+    private static String colString;
+    private static String colorString;
+    private static int count;
+    private static int proximity;
+    private static Color detectedColor;
+    private static ColorMatchResult match;
 
     private static final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
     private static final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
@@ -38,25 +44,20 @@ public class ColorSense {
 
     public static void teleopInit() {
         count = 0;
+        colString = "";
+        colorString = "";
+        lastDetectedColor = "";
+        chooseDetectedColor = "";
     }
 
     public static void teleop() {
-        String gameData, colString = "";
-        String colorString = "";
-        final Color detectedColor = m_colorSensor.getColor();
-        final ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
-        final int proximity = m_colorSensor.getProximity();
-
+        detectedColor = m_colorSensor.getColor();
+        match = m_colorMatcher.matchClosestColor(detectedColor);
+        proximity = m_colorSensor.getProximity();
         gameData = DriverStation.getInstance().getGameSpecificMessage();
 
         colorString = matchResult(match);
         colString = matchResult(match);
-        SmartDashboard.putNumber("Red", detectedColor.red);
-        SmartDashboard.putNumber("Green", detectedColor.green);
-        SmartDashboard.putNumber("Blue", detectedColor.blue);
-        SmartDashboard.putNumber("Confidence", match.confidence);
-        SmartDashboard.putString("Detected Color", colorString);
-        SmartDashboard.putNumber("Proximity", proximity);
 
         if (!lastDetectedColor.equals(colorString)) {
             if (match.color == kBlueTarget) {
@@ -65,50 +66,49 @@ public class ColorSense {
         }
 
         if (count >= 7) {
-         
             TheMotor.runColor(0);
         }
-        if (Robot.xbox.getPOV()==0) {
+
+        if (Robot.xbox.getPOV() == 0) {
             count = 0;
             TheMotor.setMode(Modes.colorMode);
             TheMotor.runColor(0.2);
         }
 
-        SmartDashboard.putNumber("count", count);
-
-        lastDetectedColor = colorString;
-
         if (gameData.length() > 0) {
             switch (gameData.charAt(0)) {
-            case 'B': // Blue case code
-                chooseDetectedColor = "Red";
-                break;
-            case 'G': // Green case code
-                chooseDetectedColor = "Yellow";
-                break;
-            case 'R': // Red case code
-                chooseDetectedColor = "Blue";
-                break;
-            case 'Y': // Yellow case code
-                chooseDetectedColor = "Green";
-                break;
-            default: // This is corrupt data
+                case 'B': // Blue case code
+                    chooseDetectedColor = "Red";
+                    break;
+                case 'G': // Green case code
+                    chooseDetectedColor = "Yellow";
+                    break;
+                case 'R': // Red case code
+                    chooseDetectedColor = "Blue";
+                    break;
+                case 'Y': // Yellow case code
+                    chooseDetectedColor = "Green";
+                    break;
+                default: // This is corrupt data
             }
+
             if (chooseDetectedColor.equals(colString)) {
-            
+
                 TheMotor.runColor(0);
             }
 
-            if (Robot.xbox.getPOV()==90) {
+            if (Robot.xbox.getPOV() == 90) {
                 count = 0;
                 TheMotor.setMode(Modes.colorMode);
                 TheMotor.runColor(0.14);
             }
         }
 
+        lastDetectedColor = colorString;
+        showDashboard();
     }
 
-    public static String matchResult(final ColorMatchResult match) {
+    public static String matchResult(ColorMatchResult match) {
         if (match.color == kBlueTarget) {
             return "Blue";
         } else if (match.color == kRedTarget) {
@@ -122,4 +122,13 @@ public class ColorSense {
         }
     }
 
+    private static void showDashboard() {
+        SmartDashboard.putNumber("Red", detectedColor.red);
+        SmartDashboard.putNumber("Green", detectedColor.green);
+        SmartDashboard.putNumber("Blue", detectedColor.blue);
+        SmartDashboard.putNumber("Confidence", match.confidence);
+        SmartDashboard.putString("Detected Color", colorString);
+        SmartDashboard.putNumber("Proximity", proximity);
+        SmartDashboard.putNumber("count", count);
+    }
 }

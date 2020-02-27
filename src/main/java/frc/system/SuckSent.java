@@ -20,25 +20,31 @@ public class SuckSent {
     private static int analogDistance = 100;
     private static double shootAmp = 5.1;
 
-    public static void init() {
-        RobotPower.init(0);
+    private static final int RP = 0;
+    private static final int AI = 0;
+    private static final int SK = 9;
+    private static final int ST = 10;
+    private static final int PW = 12;
 
-        analogInput = new AnalogInput(0);
-        suck = new WPI_VictorSPX(9);
-        sent = new TalonSRX(10);
-        power = new RobotPower(12);
+    public static void init() {
+        RobotPower.init(RP);
+
+        analogInput = new AnalogInput(AI);
+        suck = new WPI_VictorSPX(SK);
+        sent = new TalonSRX(ST);
+        power = new RobotPower(PW);
 
         sent.getSensorCollection().setQuadraturePosition(0, 100);
     }
 
     public static void teleop() {
-        if (analogInput.getValue() > analogDistance && !Robot.xbox.getRawButton(9)&& !Robot.xbox.getRawButton(10)) {
+        if (analogInput.getValue() > analogDistance && !Robot.xbox.getRawButton(9) && !Robot.xbox.getRawButton(10)) {
             sent.getSensorCollection().setQuadraturePosition(0, 100);
             sent.set(ControlMode.PercentOutput, 0.2);
         }
 
-        if (sent.getSensorCollection().getQuadraturePosition() >= distanceWantBallToMove
-                && !Robot.xbox.getRawButton(9) && !Robot.xbox.getRawButton(10)) {
+        if (sent.getSensorCollection().getQuadraturePosition() >= distanceWantBallToMove && !Robot.xbox.getRawButton(9)
+                && !Robot.xbox.getRawButton(10)) {
             sent.set(ControlMode.PercentOutput, 0);
         }
 
@@ -52,9 +58,9 @@ public class SuckSent {
         } else if (Robot.xbox.getRawButtonReleased(9)) {
             suck.set(ControlMode.PercentOutput, 0);
             sent.set(ControlMode.PercentOutput, 0);
-        }else if (Robot.xbox.getRawButtonPressed(10)){
+        } else if (Robot.xbox.getRawButtonPressed(10)) {
             sent.set(ControlMode.PercentOutput, 0.2);
-        }else if (Robot.xbox.getRawButtonReleased(10)){
+        } else if (Robot.xbox.getRawButtonReleased(10)) {
             sent.set(ControlMode.PercentOutput, 0);
         }
 
@@ -62,19 +68,7 @@ public class SuckSent {
             sent.set(ControlMode.PercentOutput, 0.6);
         }
 
-        SmartDashboard.putNumber("shoot motor amp", power.getPortCurrent()); // 3.4
-
-        SmartDashboard.putNumber("Total distance", sent.getSensorCollection().getQuadraturePosition());
-
-        SmartDashboard.putNumber("Analog Read", analogInput.getValue());
-
-        /*
-         * if(analog.getValue() > analogLenth) { sent.set(ControlMode.PercentOutput,
-         * 0.5); }
-         */
-
-        // analog.getValue();
-        // analog.getVoltage();
+        showDashboard();
     }
 
     public static void autonomousSent() {
@@ -83,5 +77,11 @@ public class SuckSent {
         } else {
             sent.set(ControlMode.PercentOutput, 0);
         }
+    }
+
+    private static void showDashboard() {
+        SmartDashboard.putNumber("shoot motor amp", power.getPortCurrent());
+        SmartDashboard.putNumber("Total distance", sent.getSensorCollection().getQuadraturePosition());
+        SmartDashboard.putNumber("Analog Read", analogInput.getValue());
     }
 }

@@ -32,7 +32,7 @@ public class SuckSent {
     }
 
     public static void teleop() {
-        if (analogInput.getValue() > analogDistance && !Robot.xbox.getRawButton(9)) {
+        if (analogInput.getValue() > analogDistance && !Robot.xbox.getRawButton(9)&& !Robot.xbox.getRawButton(10)) {
             sent.getSensorCollection().setQuadraturePosition(0, 100);
             sent.set(ControlMode.PercentOutput, 0.2);
         }
@@ -52,11 +52,9 @@ public class SuckSent {
         } else if (Robot.xbox.getRawButtonReleased(9)) {
             suck.set(ControlMode.PercentOutput, 0);
             sent.set(ControlMode.PercentOutput, 0);
-        }
-
-        if (Robot.xbox.getRawButtonPressed(10))  {
+        }else if (Robot.xbox.getRawButtonPressed(10)){
             sent.set(ControlMode.PercentOutput, 0.2);
-        } else if (Robot.xbox.getRawButtonReleased(10)) {
+        }else if (Robot.xbox.getRawButtonReleased(10)){
             sent.set(ControlMode.PercentOutput, 0);
         }
 

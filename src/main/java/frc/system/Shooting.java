@@ -3,18 +3,15 @@ package frc.system;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
 import frc.robot.TheMotor;
 import frc.robot.TheMotor.Modes;
 
 public class Shooting {
     private static WPI_VictorSPX shootLeft;
-    private static Timer timer;
 
     public static void init() {
         shootLeft = new WPI_VictorSPX(7);
-        timer = new Timer();
     }
 
     public static void teleop() {

@@ -25,6 +25,7 @@ public class AutoEngine {
     protected static int step;
     protected static double leftSpeed, rightSpeed;
     protected static double disPerPulse = 0.05236;
+    protected static boolean aiming;
 
     
     protected static final String kDoNothing = "Do Nothing";
@@ -74,7 +75,6 @@ public class AutoEngine {
     }
 
     public static void loop() {
-        // AutoStep.loop(90,50);
         switch(autoSelected) {
             case kPort:
                 AutoStep.loop(0,0);
@@ -97,7 +97,7 @@ public class AutoEngine {
         gWalker.calculate(leftSpeed, rightSpeed);
 		leftSpeed = gWalker.getLeftPower();
         rightSpeed = gWalker.getRightPower();
-        if(!currentStep.equals("aim")){
+        if(!aiming){
             DriveBase.directControl(leftSpeed, -rightSpeed);
         }
         

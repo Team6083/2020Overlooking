@@ -12,12 +12,9 @@ public class AutoStep extends AutoEngine {
             case 0:
                 /* turn "angle" */
                 currentStep = "turn";
-                if(angle==0) {
-                    nextStep();
-                }
                 gWalker.setTargetAngle(angle);
                 gWalker.calculate(leftSpeed, rightSpeed);
-                if (gWalker.getErrorAngle() < errAngle) {
+                if (gWalker.getErrorAngle() < errAngle || angle == 0) {
                     nextStep();
                 }
                 leftSpeed = 0;
@@ -26,13 +23,10 @@ public class AutoStep extends AutoEngine {
             case 1:
                 /* walk "dis" inch */
                 currentStep = "walk";
-                if(dis==0) {
-                    nextStep();
-                }
                 eWalker.walk(dis);
                 leftSpeed = eWalker.getLeftSpeed();
                 rightSpeed = eWalker.getRightSpeed();
-                if (eWalker.getLeftDis() > dis || eWalker.getRightDis() > dis) {
+                if (eWalker.getLeftDis() > dis || eWalker.getRightDis() > dis || dis == 0) {
                     nextStep();
                 }
                 break;

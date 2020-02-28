@@ -13,7 +13,6 @@ import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
 
 public class ColorSense {
-    private static final I2C.Port i2cPort = I2C.Port.kOnboard;
     private static ColorSensorV3 m_colorSensor;
     private static ColorMatch m_colorMatcher;
 
@@ -27,6 +26,7 @@ public class ColorSense {
     private static Color detectedColor;
     private static ColorMatchResult match;
 
+    private static final I2C.Port i2cPort = I2C.Port.kOnboard;
     private static final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
     private static final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
     private static final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
@@ -93,7 +93,6 @@ public class ColorSense {
             }
 
             if (chooseDetectedColor.equals(colString)) {
-
                 TheMotor.runColor(0);
             }
 
@@ -108,7 +107,7 @@ public class ColorSense {
         showDashboard();
     }
 
-    public static String matchResult(ColorMatchResult match) {
+    private static String matchResult(ColorMatchResult match) {
         if (match.color == kBlueTarget) {
             return "Blue";
         } else if (match.color == kRedTarget) {

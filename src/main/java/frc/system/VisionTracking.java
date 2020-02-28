@@ -39,6 +39,7 @@ public class VisionTracking {
       setLEDMode(3);
       Update_Limelight_Tracking();
       DriveBase.track(m_LimelightDriveCommand, m_LimelightSteerCommand, false);
+      
       if (detectIfTrackingFinished()) {
         ledgate = false;
         setCamMode(1);
@@ -89,15 +90,14 @@ public class VisionTracking {
   }
 
   public static void seeking() {
-    automaticShootingFinished = false;
     double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+    automaticShootingFinished = false;
     
     setCamMode(0);
     setLEDMode(3);
 
     if (tv == 0.0) {
-      // We don't see the target, seek for the target by spinning in place at a safe
-      // speed.
+      // We don't see the target, seek for the target by spinning in place at a safe speed.
       m_LimelightSteerCommand = 0.3;
       m_LimelightDriveCommand = 0.0;
       DriveBase.track(m_LimelightDriveCommand, m_LimelightSteerCommand, false);

@@ -16,12 +16,12 @@ public class ColorSense {
     private static ColorSensorV3 m_colorSensor;
     private static ColorMatch m_colorMatcher;
 
-    private static String lastDetectedColor;
-    private static String chooseDetectedColor;
+    private static String lastDetectedColor = "";
+    private static String chooseDetectedColor = "";
     private static String gameData;
-    private static String colString;
-    private static String colorString;
-    private static int count;
+    private static String colString = "";
+    private static String colorString = "";
+    private static int count=0;
     private static int proximity;
     private static Color detectedColor;
     private static ColorMatchResult match;
@@ -40,14 +40,6 @@ public class ColorSense {
         m_colorMatcher.addColorMatch(kGreenTarget);
         m_colorMatcher.addColorMatch(kRedTarget);
         m_colorMatcher.addColorMatch(kYellowTarget);
-    }
-
-    public static void teleopInit() {
-        count = 0;
-        colString = "";
-        colorString = "";
-        lastDetectedColor = "";
-        chooseDetectedColor = "";
     }
 
     public static void teleop() {

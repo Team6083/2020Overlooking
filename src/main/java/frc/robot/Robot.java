@@ -26,13 +26,11 @@ import frc.system.auto.AutoEngine;
 public class Robot extends TimedRobot {
   public static XBox xbox;
   public static TheMotor motor;
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
-
-  
-
   @Override
   public void robotInit() {
     xbox = new XBox(0);
@@ -58,10 +56,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    ColorSense.teleopInit();
   }
-
-
 
   @Override
   public void teleopPeriodic() {
@@ -80,5 +75,4 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
-
 }

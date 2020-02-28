@@ -61,15 +61,8 @@ public class AutoEngine {
 
     public static void start() {
         autoSelected = chooser.getSelected();
-
         step = 0;
-        leftSpeed = 0;
-        rightSpeed = 0;
-
-        leftEnc.reset();
-        rightEnc.reset();
-        autoTimer.reset();
-        autoTimer.start();
+        autoReset();
         gWalker.setTargetAngle(0);
         gWalker.setPID(0.021, 0, 0.0015);
     }
@@ -107,12 +100,7 @@ public class AutoEngine {
     protected static void nextStep() {
         System.out.println("Finish step:" + currentStep + "(" + step + ")");
         autoTimer.stop();
-        autoTimer.reset();
-        autoTimer.start();
-        leftEnc.reset();
-        rightEnc.reset();
-        leftSpeed = 0;
-        rightSpeed = 0;
+        autoReset();
         step++;
     }
 
@@ -124,5 +112,14 @@ public class AutoEngine {
         SmartDashboard.putNumber("AutoEngine/ Left Dis", eWalker.getLeftDis());
         SmartDashboard.putNumber("AutoEngine/ Right Dis", eWalker.getRightDis());
         SmartDashboard.putNumber("AutoEngine/ AutoTimer", autoTimer.get());
+    }
+
+    private static void autoReset() {
+        autoTimer.reset();
+        autoTimer.start();
+        leftEnc.reset();
+        rightEnc.reset();
+        leftSpeed = 0;
+        rightSpeed = 0;
     }
 }

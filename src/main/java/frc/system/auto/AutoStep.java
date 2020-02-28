@@ -35,7 +35,7 @@ public class AutoStep extends AutoEngine {
                 currentStep = "aim";
                 isAiming = true;
                 if (VisionTracking.detectIfTrackingFinished()) {
-                    // isAiming = false;
+                    isAiming = false;
                     nextStep();
                 } else {
                     VisionTracking.seeking();
@@ -46,6 +46,7 @@ public class AutoStep extends AutoEngine {
                 currentStep = "shoot";
                 leftSpeed = 0;
                 rightSpeed = 0;
+                gWalker.setTargetAngle(gWalker.getCurrentAngle());
                 Shooting.shoot(autoTimer.get() < 5);
                 SuckSent.autonomousSent();
         }

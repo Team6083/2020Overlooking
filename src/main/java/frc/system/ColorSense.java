@@ -75,6 +75,27 @@ public class ColorSense {
             TheMotor.runColor(0.2);
         }
 
+        runAssignedColor(); // run when give gameData
+
+        lastDetectedColor = colorString;
+        showDashboard();
+    }
+
+    private static String matchResult(ColorMatchResult match) {
+        if (match.color == kBlueTarget) {
+            return "Blue";
+        } else if (match.color == kRedTarget) {
+            return "Red";
+        } else if (match.color == kGreenTarget) {
+            return "Green";
+        } else if (match.color == kYellowTarget) {
+            return "Yellow";
+        } else {
+            return "Unknown";
+        }
+    }
+
+    private static void runAssignedColor() {
         if (gameData.length() > 0) {
             switch (gameData.charAt(0)) {
                 case 'B': // Blue case code
@@ -101,23 +122,6 @@ public class ColorSense {
                 TheMotor.setMode(Modes.colorMode);
                 TheMotor.runColor(0.14);
             }
-        }
-
-        lastDetectedColor = colorString;
-        showDashboard();
-    }
-
-    private static String matchResult(ColorMatchResult match) {
-        if (match.color == kBlueTarget) {
-            return "Blue";
-        } else if (match.color == kRedTarget) {
-            return "Red";
-        } else if (match.color == kGreenTarget) {
-            return "Green";
-        } else if (match.color == kYellowTarget) {
-            return "Yellow";
-        } else {
-            return "Unknown";
         }
     }
 

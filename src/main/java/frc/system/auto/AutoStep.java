@@ -39,9 +39,9 @@ public class AutoStep extends AutoEngine {
             case 2:
                 /* take aim */
                 currentStep = "aim";
-                aiming = true;
+                isAiming = true;
                 if (VisionTracking.detectIfTrackingFinished()) {
-                    aiming = false;
+                    // isAiming = false;
                     nextStep();
                 } else {
                     VisionTracking.seeking();

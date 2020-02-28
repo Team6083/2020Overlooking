@@ -42,29 +42,17 @@ public class AutoEngine {
         autoTimer = new Timer();
         chooser = new SendableChooser<String>();
 
-        gyro.calibrate();
-        while (gyro.isCalibrating())
-            ;
-        gyro.enableBoardlevelYawReset(true);
-        gyro.reset();
-        leftEnc.setReverseDirection(true);
-        rightEnc.setReverseDirection(false);
-        leftEnc.setDistancePerPulse(disPerPulse);
-        rightEnc.setDistancePerPulse(disPerPulse);
-
-        chooser.setDefaultOption("Do Nothing", kDoNothing);
-        chooser.addOption("Port", kPort);
-        chooser.addOption("Start Line", kStartLine);
-        chooser.addOption("Loading Bay", kLoaingBay);
-        SmartDashboard.putData("Auto Choice", chooser);
+        gyroSetting();
+        encoderSetting();
+        chooserSetting();
     }
 
     public static void start() {
-        autoSelected = chooser.getSelected();
         step = 0;
         autoReset();
         gWalker.setTargetAngle(0);
         gWalker.setPID(0.021, 0, 0.0015);
+        autoSelected = chooser.getSelected();
     }
 
     public static void loop() {
@@ -121,5 +109,28 @@ public class AutoEngine {
         rightEnc.reset();
         leftSpeed = 0;
         rightSpeed = 0;
+    }
+
+    private static void gyroSetting() {
+        gyro.calibrate();
+        while (gyro.isCalibrating())
+            ;
+        gyro.enableBoardlevelYawReset(true);
+        gyro.reset();
+    }
+
+    private static void encoderSetting() {
+        leftEnc.setReverseDirection(true);
+        rightEnc.setReverseDirection(false);
+        leftEnc.setDistancePerPulse(disPerPulse);
+        rightEnc.setDistancePerPulse(disPerPulse);
+    }
+
+    private static void chooserSetting() {
+        chooser.setDefaultOption("Do Nothing", kDoNothing);
+        chooser.addOption("Port", kPort);
+        chooser.addOption("Start Line", kStartLine);
+        chooser.addOption("Loading Bay", kLoaingBay);
+        SmartDashboard.putData("Auto Choice", chooser);
     }
 }

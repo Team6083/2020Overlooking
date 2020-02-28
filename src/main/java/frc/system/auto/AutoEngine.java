@@ -27,7 +27,6 @@ public class AutoEngine {
     protected static double disPerPulse = 0.05236;
     protected static boolean isAiming;
 
-    
     protected static final String kDoNothing = "Do Nothing";
     protected static final String kPort = "Port";
     protected static final String kStartLine = "Start Line";
@@ -42,9 +41,10 @@ public class AutoEngine {
         eWalker = new EncoderWalker(leftEnc, rightEnc, Mode.Both);
         autoTimer = new Timer();
         chooser = new SendableChooser<String>();
-        
+
         gyro.calibrate();
-        while(gyro.isCalibrating());
+        while (gyro.isCalibrating())
+            ;
         gyro.enableBoardlevelYawReset(true);
         gyro.reset();
         leftEnc.setReverseDirection(true);
@@ -63,10 +63,10 @@ public class AutoEngine {
         autoSelected = chooser.getSelected();
 
         step = 0;
-		leftSpeed = 0;
+        leftSpeed = 0;
         rightSpeed = 0;
-        
-		leftEnc.reset();
+
+        leftEnc.reset();
         rightEnc.reset();
         autoTimer.reset();
         autoTimer.start();
@@ -75,9 +75,9 @@ public class AutoEngine {
     }
 
     public static void loop() {
-        switch(autoSelected) {
+        switch (autoSelected) {
             case kPort:
-                AutoStep.loop(0,0);
+                AutoStep.loop(0, 0);
                 break;
             case kStartLine:
                 AutoStep.loop(85, 78.85);
@@ -88,37 +88,41 @@ public class AutoEngine {
             case kDoNothing:
             default:
                 currentStep = "DoNothing";
-			    leftSpeed = 0;
-			    rightSpeed = 0;
+                leftSpeed = 0;
+                rightSpeed = 0;
                 gWalker.setTargetAngle(0);
                 break;
         }
 
         gWalker.calculate(leftSpeed, rightSpeed);
-		leftSpeed = gWalker.getLeftPower();
+        leftSpeed = gWalker.getLeftPower();
         rightSpeed = gWalker.getRightPower();
-        if(!isAiming){
+        if (!isAiming) {
             DriveBase.directControl(leftSpeed, -rightSpeed);
         }
-        
-        SmartDashboard.putString("CurrentStep", currentStep);
-		SmartDashboard.putNumber("Current Angle", gWalker.getCurrentAngle());
-		SmartDashboard.putNumber("Target Angle", gWalker.getTargetAngle());
-		SmartDashboard.putNumber("Error Angle", gWalker.getErrorAngle());
-		SmartDashboard.putNumber("Left Dis", eWalker.getLeftDis());
-		SmartDashboard.putNumber("Right Dis", eWalker.getRightDis());
-		SmartDashboard.putNumber("Timer", autoTimer.get());
+
+        showDashboard();
     }
 
     protected static void nextStep() {
-		System.out.println("Finish step:"+currentStep+"("+step+")");
-		autoTimer.stop();
-		autoTimer.reset();
-		autoTimer.start();
-		leftEnc.reset();
+        System.out.println("Finish step:" + currentStep + "(" + step + ")");
+        autoTimer.stop();
+        autoTimer.reset();
+        autoTimer.start();
+        leftEnc.reset();
         rightEnc.reset();
         leftSpeed = 0;
         rightSpeed = 0;
-		step++;
-	}
+        step++;
+    }
+
+    private static void showDashboard() {
+        SmartDashboard.putString("AutoEngine/ CurrentStep", currentStep);
+        SmartDashboard.putNumber("AutoEngine/ Current Angle", gWalker.getCurrentAngle());
+        SmartDashboard.putNumber("AutoEngine/ Target Angle", gWalker.getTargetAngle());
+        SmartDashboard.putNumber("AutoEngine/ Error Angle", gWalker.getErrorAngle());
+        SmartDashboard.putNumber("AutoEngine/ Left Dis", eWalker.getLeftDis());
+        SmartDashboard.putNumber("AutoEngine/ Right Dis", eWalker.getRightDis());
+        SmartDashboard.putNumber("AutoEngine/ AutoTimer", autoTimer.get());
+    }
 }

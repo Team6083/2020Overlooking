@@ -126,12 +126,12 @@ public class ColorSense {
     }
 
     private static void showDashboard() {
-        SmartDashboard.putNumber("Red", detectedColor.red);
-        SmartDashboard.putNumber("Green", detectedColor.green);
-        SmartDashboard.putNumber("Blue", detectedColor.blue);
-        SmartDashboard.putNumber("Confidence", match.confidence);
-        SmartDashboard.putString("Detected Color", colorString);
-        SmartDashboard.putNumber("Proximity", proximity);
-        SmartDashboard.putNumber("count", count);
+        SmartDashboard.putNumber("ColorSense/ Red", detectedColor.red);
+        SmartDashboard.putNumber("ColorSense/ Green", detectedColor.green);
+        SmartDashboard.putNumber("ColorSense/ Blue", detectedColor.blue);
+        SmartDashboard.putNumber("ColorSense/ Confidence", match.confidence);
+        SmartDashboard.putString("ColorSense/ Detected Color", colorString);
+        SmartDashboard.putNumber("ColorSense/ Proximity", proximity);
+        SmartDashboard.putNumber("ColorSense/ Count", count);
     }
 }

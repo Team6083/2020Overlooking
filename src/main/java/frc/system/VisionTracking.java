@@ -201,14 +201,14 @@ public class VisionTracking {
 
   private static void showDashboardTeleop() {
     SmartDashboard.putNumber("Robot voltage", RobotPower.getRobotVoltage());
-    SmartDashboard.putBoolean("A Vision tracking button pressed: ", ledgate);
-    SmartDashboard.putNumber("m_LimelightDriveCommand", m_LimelightDriveCommand);
-    SmartDashboard.putNumber("m_LimelightSteerCommand", m_LimelightSteerCommand);
+    SmartDashboard.putBoolean("VisionTracking/ Is tracking", ledgate);
+    SmartDashboard.putNumber("VisionTracking/ LimelightDrive", m_LimelightDriveCommand);
+    SmartDashboard.putNumber("VisionTracking/ LimelightSteer", m_LimelightSteerCommand);
   }
 
   private static void showDashboardSeekig() {
-    SmartDashboard.putBoolean("whether automatic shooting finished", automaticShootingFinished);
-    SmartDashboard.putNumber("m_LimelightDriveCommand", m_LimelightDriveCommand);
-    SmartDashboard.putNumber("m_LimelightSteerCommand", m_LimelightSteerCommand);
+    SmartDashboard.putBoolean("VisionTracking/ Automatic shooting finished", automaticShootingFinished);
+    SmartDashboard.putNumber("VisionTracking/ LimelightDrive", m_LimelightDriveCommand);
+    SmartDashboard.putNumber("VisionTracking/ LimelightSteer", m_LimelightSteerCommand);
   }
 }

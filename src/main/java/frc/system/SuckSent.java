@@ -80,8 +80,8 @@ public class SuckSent {
     }
 
     private static void showDashboard() {
-        SmartDashboard.putNumber("shoot motor amp", power.getPortCurrent());
-        SmartDashboard.putNumber("Total distance", sent.getSensorCollection().getQuadraturePosition());
-        SmartDashboard.putNumber("Analog Read", analogInput.getValue());
+        SmartDashboard.putNumber("SuckSent/ Shoot motor amp", power.getPortCurrent());
+        SmartDashboard.putNumber("SuckSent/ Enc distance", sent.getSensorCollection().getQuadraturePosition());
+        SmartDashboard.putNumber("SuckSent/ Analog Read", analogInput.getValue());
     }
 }

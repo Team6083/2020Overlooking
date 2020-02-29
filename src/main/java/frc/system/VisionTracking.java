@@ -129,7 +129,7 @@ public class VisionTracking {
         time.reset();
       }
 
-      if (time.get() > 3) {
+      if (time.get() > 2) {
         detectedFinished = true;
         time.stop();
         time.reset();

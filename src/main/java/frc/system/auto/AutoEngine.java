@@ -113,8 +113,7 @@ public class AutoEngine {
 
     private static void gyroSetting() {
         gyro.calibrate();
-        while (gyro.isCalibrating())
-            ;
+        while (gyro.isCalibrating());
         gyro.enableBoardlevelYawReset(true);
         gyro.reset();
     }

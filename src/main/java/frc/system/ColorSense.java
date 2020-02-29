@@ -112,7 +112,7 @@ public class ColorSense {
             if (Robot.xbox.getPOV() == 90) {
                 count = 0;
                 TheMotor.setMode(Modes.colorMode);
-                TheMotor.runColor(0.14);
+                TheMotor.runColor(0.12);
             }
         }
     }

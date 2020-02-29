@@ -20,13 +20,13 @@ public class VisionTracking {
 
   private static final double MAX_DRIVE = 0.7; // Simple speed limit so we don't drive too fast
   private static final double MAX_STEER = 0.7;
-  private static final double ACCEPTABLE_ERROR_RANGE = 0.1;
+  private static final double ACCEPTABLE_ERROR_RANGE = 0.2;
 
   public static void init() {
     time = new Timer();
-    PID_controller = new PIDController(0.025, 0.047, 0.000);
+    PID_controller = new PIDController(0.04, 0.001, 0.001);
     setCamMode(0);
-    setLEDMode(3);
+    setLEDMode(0);
   }
 
   public static void teleop() {
@@ -98,7 +98,7 @@ public class VisionTracking {
 
     if (tv == 0.0) {
       // We don't see the target, seek for the target by spinning in place at a safe speed.
-      m_LimelightSteerCommand = 0.3;
+      m_LimelightSteerCommand = -0.3;
       m_LimelightDriveCommand = 0.0;
       DriveBase.track(m_LimelightDriveCommand, m_LimelightSteerCommand, false);
     } else {

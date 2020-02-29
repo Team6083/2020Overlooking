@@ -8,6 +8,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.system.ColorSense;
 import frc.system.DriveBase;
 import frc.system.Elevate;
@@ -58,14 +60,40 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
   }
 
+  Timer timer = new Timer();
+
   @Override
   public void teleopPeriodic() {
+    timer.reset();
+    timer.start();
     ColorSense.teleop();
+    timer.stop();
+    SmartDashboard.putNumber("timer/color", timer.get());
+    timer.reset();
+    timer.start();
     DriveBase.teleop();
+    timer.stop();
+    SmartDashboard.putNumber("timer/drive", timer.get());
+    timer.reset();
+    timer.start();
     Elevate.teleop();
+    timer.stop();
+    SmartDashboard.putNumber("timer/elevate", timer.get());
+    timer.reset();
+    timer.start();
     Shooting.teleop();
+    timer.stop();
+    SmartDashboard.putNumber("timer/shooting", timer.get());
+    timer.reset();
+    timer.start();
     VisionTracking.teleop();
+    timer.stop();
+    SmartDashboard.putNumber("timer/VisionTracking", timer.get());
+    timer.reset();
+    timer.start();
     SuckSent.teleop();
+    timer.stop();
+    SmartDashboard.putNumber("timer/SuckSent", timer.get());
   }
 
   @Override

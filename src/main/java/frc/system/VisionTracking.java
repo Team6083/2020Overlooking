@@ -24,7 +24,7 @@ public class VisionTracking {
 
   public static void init() {
     time = new Timer();
-    PID_controller = new PIDController(0.025, 0.047, 0.000);
+    PID_controller = new PIDController(0.04, 0.001, 0.001);
     setCamMode(0);
     setLEDMode(3);
   }

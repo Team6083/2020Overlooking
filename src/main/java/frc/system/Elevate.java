@@ -24,9 +24,9 @@ public class Elevate {
         up.set(ControlMode.PercentOutput, speed);
 
         if (Robot.xbox.getXButton()) {
-            rope.set(ControlMode.PercentOutput, 0.7);
+            rope.set(ControlMode.PercentOutput, 0.9);
         } else if (Robot.xbox.getAButton()) {
-            rope.set(ControlMode.PercentOutput, -0.7);
+            rope.set(ControlMode.PercentOutput, -0.9);
         } else {
             rope.set(ControlMode.PercentOutput, 0);
         }

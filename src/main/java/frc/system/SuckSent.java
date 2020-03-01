@@ -16,8 +16,8 @@ public class SuckSent {
     private static RobotPower power;
 
     private static AnalogInput analogInput;
-    private static double distanceWantBallToMove = 4000;// this variable need to be tune
-    private static int analogDistance = 100;
+    private static double distanceWantBallToMove = 4500;// this variable need to be tune
+    private static int analogDistance = 200;
     private static double shootAmp = 5.1;
 
     private static final int RP = 0;

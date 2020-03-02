@@ -19,13 +19,13 @@ public class Elevate {
     }
 
     public static void teleop() {
-        double speed = Robot.xbox.getTriggerAxis(Hand.kLeft) - Robot.xbox.getTriggerAxis(Hand.kRight);
+        double speed = Robot.vicecontrol.getTriggerAxis(Hand.kLeft) - Robot.vicecontrol.getTriggerAxis(Hand.kRight);
 
         up.set(ControlMode.PercentOutput, speed);
 
-        if (Robot.xbox.getXButton()) {
+        if (Robot.maincontrol.getXButton()) {
             rope.set(ControlMode.PercentOutput, 0.9);
-        } else if (Robot.xbox.getAButton()) {
+        } else if (Robot.maincontrol.getAButton()) {
             rope.set(ControlMode.PercentOutput, -0.9);
         } else {
             rope.set(ControlMode.PercentOutput, 0);

@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import org.team6083.lib.RobotPower;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
@@ -38,29 +39,29 @@ public class SuckSent {
     }
 
     public static void teleop() {
-        if (analogInput.getValue() > analogDistance && !Robot.xbox.getRawButton(9) && !Robot.xbox.getRawButton(10)) {
+        if (analogInput.getValue() > analogDistance && !Robot.vicecontrol.getBumperPressed(Hand.kLeft) && !Robot.vicecontrol.getBumperPressed(Hand.kRight)) {
             sent.getSensorCollection().setQuadraturePosition(0, 100);
             sent.set(ControlMode.PercentOutput, 0.2);
         }
 
-        if (sent.getSensorCollection().getQuadraturePosition() >= distanceWantBallToMove && !Robot.xbox.getRawButton(9)
-                && !Robot.xbox.getRawButton(10)) {
+        if (sent.getSensorCollection().getQuadraturePosition() >= distanceWantBallToMove && !Robot.vicecontrol.getBumperPressed(Hand.kLeft)
+                && !Robot.vicecontrol.getBumperPressed(Hand.kRight)) {
             sent.set(ControlMode.PercentOutput, 0);
         }
 
-        if (Robot.xbox.getYButtonPressed()) {
+        if (Robot.maincontrol.getYButtonPressed()) {
             suck.set(ControlMode.PercentOutput, 0.4);
-        } else if (Robot.xbox.getYButtonReleased()) {
+        } else if (Robot.maincontrol.getYButtonReleased()) {
             suck.set(ControlMode.PercentOutput, 0);
-        } else if (Robot.xbox.getRawButtonPressed(9)) {
+        } else if (Robot.vicecontrol.getBumperPressed(Hand.kLeft)){
             suck.set(ControlMode.PercentOutput, -0.3);
             sent.set(ControlMode.PercentOutput, -0.3);
-        } else if (Robot.xbox.getRawButtonReleased(9)) {
+        } else if (Robot.vicecontrol.getBumperReleased(Hand.kLeft)) {
             suck.set(ControlMode.PercentOutput, 0);
             sent.set(ControlMode.PercentOutput, 0);
-        } else if (Robot.xbox.getRawButtonPressed(10)) {
+        } else if (Robot.vicecontrol.getBumperPressed(Hand.kRight)) {
             sent.set(ControlMode.PercentOutput, 0.2);
-        } else if (Robot.xbox.getRawButtonReleased(10)) {
+        } else if (Robot.vicecontrol.getBumperReleased(Hand.kRight)) {
             sent.set(ControlMode.PercentOutput, 0);
         }
 

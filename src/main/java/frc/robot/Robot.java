@@ -14,6 +14,7 @@ import frc.system.Elevate;
 import frc.system.Shooting;
 import frc.system.SuckSent;
 import frc.system.VisionTracking;
+import frc.system.camera;
 import frc.system.auto.AutoEngine;
 
 /**
@@ -24,7 +25,8 @@ import frc.system.auto.AutoEngine;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static XBox xbox;
+  public static XBox maincontrol;
+  public static XBox vicecontrol;
   public static TheMotor motor;
 
   /**
@@ -33,7 +35,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    xbox = new XBox(0);
+    maincontrol = new XBox(0);
+    vicecontrol = new XBox(1);
     TheMotor.init();
     ColorSense.init();
     DriveBase.init();
@@ -42,6 +45,7 @@ public class Robot extends TimedRobot {
     VisionTracking.init();
     SuckSent.init();
     AutoEngine.init();
+    camera.init();
   }
 
   @Override

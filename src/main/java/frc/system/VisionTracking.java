@@ -30,7 +30,7 @@ public class VisionTracking {
   }
 
   public static void teleop() {
-    if (Robot.xbox.getStartButtonPressed()) {
+    if (Robot.vicecontrol.getStartButtonPressed()) {
       ledgate = !ledgate;
     }
 

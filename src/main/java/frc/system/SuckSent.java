@@ -39,13 +39,13 @@ public class SuckSent {
     }
 
     public static void teleop() {
-        if (analogInput.getValue() > analogDistance && !Robot.vicecontrol.getBumperPressed(Hand.kLeft) && !Robot.vicecontrol.getBumperPressed(Hand.kRight)) {
-            sent.getSensorCollection().setQuadraturePosition(0, 100);
+        if (analogInput.getValue() > analogDistance && !Robot.vicecontrol.getBumper(Hand.kLeft) && !Robot.vicecontrol.getBumper(Hand.kRight)) {
+            sent.getSensorCollection().setQuadraturePosition(0, 100);                
             sent.set(ControlMode.PercentOutput, 0.2);
         }
-
-        if (sent.getSensorCollection().getQuadraturePosition() >= distanceWantBallToMove && !Robot.vicecontrol.getBumperPressed(Hand.kLeft)
-                && !Robot.vicecontrol.getBumperPressed(Hand.kRight)) {
+        
+        if (sent.getSensorCollection().getQuadraturePosition() >= distanceWantBallToMove && !Robot.vicecontrol.getBumper(Hand.kRight)
+                && !Robot.vicecontrol.getBumper(Hand.kLeft)) {
             sent.set(ControlMode.PercentOutput, 0);
         }
 

@@ -25,6 +25,7 @@ public class ColorSense {
     private static int proximity;
     private static Color detectedColor;
     private static ColorMatchResult match;
+    private static boolean coloron = false;
 
     private static final I2C.Port i2cPort = I2C.Port.kOnboard;
     private static final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
@@ -43,6 +44,10 @@ public class ColorSense {
     }
 
     public static void teleop() {
+        if(Robot.vicecontrol.getAButtonPressed()){
+            coloron=!coloron;
+        }
+        if(coloron){
         detectedColor = m_colorSensor.getColor();
         match = m_colorMatcher.matchClosestColor(detectedColor);
         proximity = m_colorSensor.getProximity();
@@ -72,6 +77,7 @@ public class ColorSense {
         lastDetectedColor = colorString;
         showDashboard();
     }
+}
 
     private static String matchResult(ColorMatchResult match) {
         if (match.color == kBlueTarget) {

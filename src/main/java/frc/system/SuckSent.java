@@ -65,7 +65,7 @@ public class SuckSent {
             sent.set(ControlMode.PercentOutput, 0);
         }
 
-        if (power.getPortCurrent() < shootAmp && power.getPortCurrent() != 0) {
+        if (power.getPortCurrent() < shootAmp && power.getPortCurrent() > 2) {
             sent.set(ControlMode.PercentOutput, 0.6);
         }
 
@@ -73,7 +73,7 @@ public class SuckSent {
     }
 
     public static void autonomousSent() {
-        if (power.getPortCurrent() < shootAmp && power.getPortCurrent() != 0) {
+        if (power.getPortCurrent() < shootAmp && power.getPortCurrent() > 2) {
             sent.set(ControlMode.PercentOutput, 0.6);
         } else {
             sent.set(ControlMode.PercentOutput, 0);

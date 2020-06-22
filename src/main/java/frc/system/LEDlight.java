@@ -2,7 +2,6 @@ package frc.system;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
-import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -51,7 +50,7 @@ public class LEDlight{
   }
 
   //need to write the condition when the robot is enable or not,is in autoMode or teleopMode
-  public void LEDlight() {
+  public void LEDlights() {
         if (xbox.getBButton() || xbox.getYButton()) {
           dynamicRainbow();
         } else if (xbox.getBumper(Hand.kRight) || xbox.getBumper(Hand.kLeft)) {

@@ -41,7 +41,7 @@ public class SuckSent {
     public static void teleop() {
         if (analogInput.getValue() > analogDistance && !Robot.vicecontrol.getBumper(Hand.kLeft) && !Robot.vicecontrol.getBumper(Hand.kRight)) {
             sent.getSensorCollection().setQuadraturePosition(0, 100);                
-            sent.set(ControlMode.PercentOutput, 0.2);
+            sent.set(ControlMode.PercentOutput, 0.3);
         }
         
         if (sent.getSensorCollection().getQuadraturePosition() >= distanceWantBallToMove && !Robot.vicecontrol.getBumper(Hand.kRight)
@@ -60,7 +60,7 @@ public class SuckSent {
             suck.set(ControlMode.PercentOutput, 0);
             sent.set(ControlMode.PercentOutput, 0);
         } else if (Robot.vicecontrol.getBumperPressed(Hand.kRight)) {
-            sent.set(ControlMode.PercentOutput, 0.2);
+            sent.set(ControlMode.PercentOutput, 0.3);
         } else if (Robot.vicecontrol.getBumperReleased(Hand.kRight)) {
             sent.set(ControlMode.PercentOutput, 0);
         }

@@ -18,8 +18,8 @@ public class Shooting {
     public static void teleop() {
         if (Robot.maincontrol.getBButton()) {
             TheMotor.setMode(Modes.shootMode);
-            shootLeft.set(ControlMode.PercentOutput, 0.7);
-            TheMotor.shoot(0.7);
+            shootLeft.set(ControlMode.PercentOutput, 0.68);
+            TheMotor.shoot(0.68);
         } else {
             shootLeft.set(ControlMode.PercentOutput, 0);
             TheMotor.shoot(0);
@@ -29,8 +29,8 @@ public class Shooting {
     public static void shoot(boolean doShoot) {
         if (doShoot) {
             TheMotor.setMode(Modes.shootMode);
-            shootLeft.set(ControlMode.PercentOutput, 0.7);
-            TheMotor.shoot(0.7);
+            shootLeft.set(ControlMode.PercentOutput, 0.68);
+            TheMotor.shoot(0.68);
         } else {
             shootLeft.set(ControlMode.PercentOutput, 0);
             TheMotor.shoot(0);

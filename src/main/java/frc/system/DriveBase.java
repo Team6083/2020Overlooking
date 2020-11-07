@@ -43,18 +43,18 @@ public class DriveBase {
     }
 
     public static void teleop() {
-        drive.tankDrive(Robot.maincontrol);
+        
         if (Robot.maincontrol.getPOV()==0){
             leftMotor1.set(0.3);
             leftMotor2.set(0.3);
-            rightMotor1.set(0.3);
-            rightMotor2.set(0.3);
+            rightMotor1.set(-0.3);
+            rightMotor2.set(-0.3);
         }
         else if (Robot.maincontrol.getPOV()==180){
             leftMotor1.set(-0.3);
             leftMotor2.set(-0.3);
-            rightMotor1.set(-0.3);
-            rightMotor2.set(-0.3);
+            rightMotor1.set(0.3);
+            rightMotor2.set(0.3);
         }
         else if (Robot.maincontrol.getPOV()==90){
             leftMotor1.set(0.3);
@@ -62,17 +62,14 @@ public class DriveBase {
             rightMotor1.set(0.1);
             rightMotor2.set(0.1);
         }
-        else if (Robot.maincontrol.getPOV()==180){
-            leftMotor1.set(0.1);
-            leftMotor2.set(0.1);
-            rightMotor1.set(0.3);
-            rightMotor2.set(0.3);
+        else if (Robot.maincontrol.getPOV()==270){
+            leftMotor1.set(-0.1);
+            leftMotor2.set(-0.1);
+            rightMotor1.set(-0.3);
+            rightMotor2.set(-0.3);
         }
         else {
-            leftMotor1.set(0);
-            leftMotor2.set(0);
-            rightMotor1.set(0);
-            rightMotor2.set(0);
+            drive.tankDrive(Robot.maincontrol);
         }
     }
 

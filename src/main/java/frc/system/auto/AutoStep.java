@@ -49,6 +49,17 @@ public class AutoStep extends AutoEngine {
                 gWalker.setTargetAngle(gWalker.getCurrentAngle());
                 Shooting.shoot(autoTimer.get() < 5);
                 SuckSent.autonomousSent();
+                break;
+            case 4:
+                currentStep = "turn around";
+                gWalker.setTargetAngle(180);
+                gWalker.calculate(leftSpeed, rightSpeed);
+                if (gWalker.getErrorAngle() < errAngle || angle == 0) {
+                    nextStep();
+                }
+                leftSpeed = 0;
+                rightSpeed = 0;
+                break;
         }
     }
 }

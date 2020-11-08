@@ -43,7 +43,6 @@ public class DriveBase {
     }
 
     public static void teleop() {
-       
         if (Robot.maincontrol.getPOV()==0){
             leftMotor1.set(0.3);
             leftMotor2.set(0.3);
